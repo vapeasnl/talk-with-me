@@ -1,0 +1,118 @@
+/* General Link Styles */
+a,
+input,
+textarea {
+    outline: 0 none;
+}
+
+a:link, a:active {
+    color: #123D7F;
+}
+
+a:visited {
+    color: #38547F;
+}
+
+a:hover {
+    color: #1D61CC;
+    text-decoration: none;
+}
+
+/* Layout and Spacing */
+#logomenu {
+    width: 1200px;
+    margin-top: 0px;
+    margin-left: 0px;
+}
+
+/* Navbar Styles */
+.navbar-nav li {
+    margin-right: 15px; /* Space between navbar links */
+}
+
+.nav-link {
+    font-size: 16px; /* Readable font size */
+    padding: 10px 15px; /* Increase padding for better appearance */
+    white-space: nowrap; /* Prevent links from wrapping to next line */
+}
+
+.navbar {
+    justify-content: space-between; /* Spread out nav items */
+}
+
+/* Handle mobile view (responsive) */
+@media (max-width: 992px) {
+    .navbar-nav {
+        flex-direction: column; /* Stack links vertically on smaller screens */
+    }
+
+    .nav-item {
+        margin-bottom: 10px; /* Space between stacked nav links */
+    }
+}
+
+/* Body Styles */
+body {
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    color: #333;
+    background-color: #fff; /* White background for readability */
+    padding: 20px; /* Padding around content */
+}
+
+/* Other Miscellaneous Styles */
+#tabs {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+}
+
+#tabs ul {
+    margin: 0;
+}
+
+p, h1, h2, h3, h4 {
+    margin: 0;
+    padding: 0;
+    border: none;
+}
+
+/* Comment form styling */
+.comment_new .form-item input {
+    width: 180px;
+    padding: 2px;
+    height: 16px;
+}
+
+.comment_new .form-item textarea {
+    height: 160px;
+    width: 455px;
+    padding: 2px;
+}
+
+/* Button Styles */
+.button {
+    border: 1px solid #ccc;
+    margin: 1px;
+    padding: 2px;
+}
+
+/* Story posts */
+.post .content {
+    background-color: #f3f3f3;
+    border: 1px dotted #a0a0a0;
+    font-size: 100%;
+    padding: 3px;
+}
+
+#center .content {
+    line-height: 160%;
+    color: #000;
+}
+
+/* Custom Header Styling */
+#center h3 {
+    color: #c61a1a;
+    font-size: 170%;
+    margin-bottom: 0.75em;
+}
