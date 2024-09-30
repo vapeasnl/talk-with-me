@@ -1,0 +1,163 @@
+{% extends "base.html" %}
+
+{% block title %}User Testimonials | Talk With Me{% endblock %}
+
+{% block body %}
+<div class="container mt-4">
+    <h2 class="text-center mb-4">User Testimonials</h2>
+
+    <p class="lead text-center mb-4">Discover how "Talk With Me" has helped others overcome their emotional challenges:</p>
+
+    <!-- Carousel for Testimonials -->
+    <div id="testimonialCarousel" class="carousel slide" data-ride="carousel">
+        <div class="carousel-inner">
+
+            <div class="carousel-item active">
+                <div class="d-flex justify-content-center">
+                    <div class="card w-75">
+                        <div class="card-body">
+                            <blockquote class="blockquote">
+                                <p class="mb-0">"Thanks to 'Talk With Me', I was able to share my feelings when I was at my lowest. It truly helped me feel better."</p>
+                                <footer class="blockquote-footer mt-2">Anonymous User</footer>
+                            </blockquote>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="carousel-item">
+                <div class="d-flex justify-content-center">
+                    <div class="card w-75">
+                        <div class="card-body">
+                            <blockquote class="blockquote">
+                                <p class="mb-0">"I finally found a space where I can speak freely without being judged. This platform is a breath of fresh air."</p>
+                                <footer class="blockquote-footer mt-2">Anonymous User</footer>
+                            </blockquote>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="carousel-item">
+                <div class="d-flex justify-content-center">
+                    <div class="card w-75">
+                        <div class="card-body">
+                            <blockquote class="blockquote">
+                                <p class="mb-0">"Sharing my story here made me realize I'm not alone. The support from this community has been incredible!"</p>
+                                <footer class="blockquote-footer mt-2">Anonymous User</footer>
+                            </blockquote>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="carousel-item">
+                <div class="d-flex justify-content-center">
+                    <div class="card w-75">
+                        <div class="card-body">
+                            <blockquote class="blockquote">
+                                <p class="mb-0">"'Talk With Me' gave me the courage to confront my feelings. I'm grateful for this platform and the people I've met."</p>
+                                <footer class="blockquote-footer mt-2">Anonymous User</footer>
+                            </blockquote>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="carousel-item">
+                <div class="d-flex justify-content-center">
+                    <div class="card w-75">
+                        <div class="card-body">
+                            <blockquote class="blockquote">
+                                <p class="mb-0">"The ability to express my thoughts without fear has been liberating. I feel lighter after sharing my experiences."</p>
+                                <footer class="blockquote-footer mt-2">Anonymous User</footer>
+                            </blockquote>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="carousel-item">
+                <div class="d-flex justify-content-center">
+                    <div class="card w-75">
+                        <div class="card-body">
+                            <blockquote class="blockquote">
+                                <p class="mb-0">"I appreciate the understanding and kindness from this community. It makes sharing my story much easier."</p>
+                                <footer class="blockquote-footer mt-2">Anonymous User</footer>
+                            </blockquote>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="carousel-item">
+                <div class="d-flex justify-content-center">
+                    <div class="card w-75">
+                        <div class="card-body">
+                            <blockquote class="blockquote">
+                                <p class="mb-0">"Being able to talk openly has been a game changer for my mental health. I highly recommend this platform."</p>
+                                <footer class="blockquote-footer mt-2">Anonymous User</footer>
+                            </blockquote>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="carousel-item">
+                <div class="d-flex justify-content-center">
+                    <div class="card w-75">
+                        <div class="card-body">
+                            <blockquote class="blockquote">
+                                <p class="mb-0">"I found comfort in reading others' stories. It helped me feel connected and less isolated in my struggles."</p>
+                                <footer class="blockquote-footer mt-2">Anonymous User</footer>
+                            </blockquote>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="carousel-item">
+                <div class="d-flex justify-content-center">
+                    <div class="card w-75">
+                        <div class="card-body">
+                            <blockquote class="blockquote">
+                                <p class="mb-0">"This platform has become my safe space. I can express my emotions without fear of judgment."</p>
+                                <footer class="blockquote-footer mt-2">Anonymous User</footer>
+                            </blockquote>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="carousel-item">
+                <div class="d-flex justify-content-center">
+                    <div class="card w-75">
+                        <div class="card-body">
+                            <blockquote class="blockquote">
+                                <p class="mb-0">"I've learned so much from the stories shared here. It’s a reminder that we’re all in this together."</p>
+                                <footer class="blockquote-footer mt-2">Anonymous User</footer>
+                            </blockquote>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        
+        <!-- Controls -->
+        <a class="carousel-control-prev" href="#testimonialCarousel" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+        </a>
+        <a class="carousel-control-next" href="#testimonialCarousel" role="button" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+        </a>
+    </div>
+
+    <div class="text-center mt-4">
+        <p>Share your story—it might inspire someone else!</p>
+        <a href="/add" class="btn btn-primary">Add Your Story</a>
+    </div>
+</div>
+{% endblock %}
