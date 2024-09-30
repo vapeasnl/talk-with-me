@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>{% block title %}{% endblock %} - TALK WITH ME</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="/static/style.css">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+
+    <style>
+        body {
+            background-image: url("{{ url_for('static', filename='background.jpg') }}");
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+
+        .navbar-nav .nav-link {
+            font-weight: 500;
+            font-size: 14px;
+            color: #ffffff !important;
+            padding-right: 10px;
+        }
+
+        .navbar-nav .nav-item {
+            margin-right: 15px;
+        }
+
+        .form-inline .form-control {
+            margin-right: 10px;
+            border-radius: 20px;
+            width: 150px;
+        }
+
+        .form-inline .btn {
+            border-radius: 20px;
+        }
+
+        @media (max-width: 992px) {
+            .navbar-nav {
+                flex-direction: column;
+            }
+
+            .form-inline .form-control {
+                width: 100%;
+            }
+        }
+        footer {
+            background-color: #343a40;
+            color: white;
+            padding: 10px 0;
+            text-align: center;  /* Centering the footer text */
+        }
+
+        footer a {
+            color: #ffffff;
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container" style="background:white; padding:0px;">
+        <!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="/about">Welcome</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/stress">Managing Stress</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/importance">Importance of Talking</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/resources">Resources</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/testimonials">Testimonials</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/professional_help">Professional Help</a>
+            </li>
+            
+            <!-- Dropdown for Story -->
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="storyDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Story
+                </a>
+                <div class="dropdown-menu" aria-labelledby="storyDropdown">
+                    <a class="dropdown-item" href="/new">New</a>
+                    <a class="dropdown-item" href="/top">Top</a>
+                    <a class="dropdown-item" href="/random">Random</a>
+                    <a class="dropdown-item" href="/add">Add a Story</a>
+
+                </div>
+            </li>
+        </ul>
+
+        <span class="navbar-text">
+            {% if session.user_id %}
+                <a href="/logout">Log out</a>
+            {% else %}
+                <a href="/login">Log in</a>
+                <a href="/register">Register</a>
+            {% endif %}
+        </span>
+
+        <form class="form-inline my-2 my-lg-0" action="/search">
+            <input name="subject" class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-info my-2 my-sm-0" type="submit">Search</button>
+        </form>
+    </div>
+</nav>
+
+
+        <!-- Main Content -->
+        <div style="margin:30px">
+            {% block body %}
+            {% endblock %}
+        </div>
+         <!-- Footer -->
+        <footer class="text-center">
+            <p>&copy; 2024 Talk With Me by ASNL-dev. All Rights Reserved.</p>
+            <p>
+                <a href="#" data-toggle="modal" data-target="#privacyModal">Privacy Policy</a> | 
+                <a href="#" data-toggle="modal" data-target="#termsModal">Terms of Service</a>
+            </p>
+        </footer>
+    </div>
+<!-- Privacy Policy Modal -->
+<div class="modal fade" id="privacyModal" tabindex="-1" role="dialog" aria-labelledby="privacyModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="privacyModalLabel">Privacy Policy</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" style="max-height: 70vh; overflow-y: auto;">
+                <h2>Your Privacy is Important</h2>
+                <p>This policy explains how we collect, use, and protect your information.</p>
+                <h3>Information We Collect</h3>
+                <p>We may collect personal information such as your name, email address, and any other information you provide us. This information is essential for us to offer our services and ensure your needs are met.</p>
+                <p>Additionally, we may collect data on your usage patterns and preferences to enhance your experience on our platform.</p>
+                <h3>How We Use Your Information</h3>
+                <p>We use your information to improve our services, customize user experiences, and communicate effectively. This includes sending you updates, promotional materials, and feedback requests.</p>
+                <h3>Data Protection</h3>
+                <p>We take reasonable measures to protect your information from unauthorized access, alteration, disclosure, or destruction. We implement industry-standard security practices and regularly review our procedures to ensure your data is secure.</p>
+                <p>However, no method of transmission over the internet or method of electronic storage is 100% secure. While we strive to use commercially acceptable means to protect your personal information, we cannot guarantee its absolute security.</p>
+                <h3>Changes to This Policy</h3>
+                <p>We may update this policy from time to time. If we make significant changes, we will notify you via email or by posting a prominent notice on our website. We encourage you to review this policy periodically for the latest information on our privacy practices.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Terms of Service Modal -->
+<div class="modal fade" id="termsModal" tabindex="-1" role="dialog" aria-labelledby="termsModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="termsModalLabel">Terms of Service</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" style="max-height: 70vh; overflow-y: auto;">
+                <h2>Welcome to Talk With Me</h2>
+                <p>By using our services, you agree to the following terms. If you do not agree, please do not use our services.</p>
+                <h3>Acceptance of Terms</h3>
+                <p>By accessing our website, you agree to comply with these terms. We reserve the right to change these terms at any time, and your continued use of our services constitutes acceptance of those changes.</p>
+                <h3>User Responsibilities</h3>
+                <p>You are responsible for your actions while using our services and agree to use them legally. You must not use our services for any illegal or unauthorized purpose, and you must not disrupt or interfere with the security or performance of our services.</p>
+                <h3>Limitation of Liability</h3>
+                <p>We are not liable for any damages resulting from your use of our services. This includes, but is not limited to, direct, indirect, incidental, punitive, and consequential damages. You agree that the use of our services is at your sole risk.</p>
+                <h3>Changes to Terms</h3>
+                <p>We may update these terms from time to time. We will notify you of significant changes by posting a notice on our website. It is your responsibility to review these terms regularly to stay informed about any changes.</p>
+                <h3>Governing Law</h3>
+                <p>These terms shall be governed by and construed in accordance with the laws of the jurisdiction in which we operate. Any disputes arising under or in connection with these terms shall be subject to the exclusive jurisdiction of the courts located within that jurisdiction.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
