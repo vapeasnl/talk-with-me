@@ -2,3 +2,6 @@ Flask
 SQLAlchemy
 Flask-WTF
 Jinja2
+better_profanity
+Flask-Session
+
