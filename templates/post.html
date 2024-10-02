@@ -6,19 +6,22 @@
 
 <div class="view-content">
     <div class="post cit_395664">
+        <div class="user-info">
+            <img src="{{ url_for('static', filename=story.author.profile_picture_url) }}" alt="User Avatar">
+            <span>{{ story.author.username }}</span>
+        </div>
         <span class="number"><a href="#">#{{ story['id'] }}</a></span>
         <span class="time">{{ story['datetime'] }}</span>
         <span class="post_id">
-        [
-        <span class="votes">
-        <a class="cit_plus" href="/like/{{ story['id'] }}/post">+</a>
-        </span>
-        <span class="raiting">
-        {{ story['likes'] }}        </span>
-        <span class="votes">
-        <a class="cit_minus" href="/dislike/{{ story['id'] }}/post">−</a>
-        </span>
-        ]
+            [
+            <span class="votes">
+                <i class="bi bi-hand-thumbs-up like-button" data-id="{{ story['id'] }}" data-type="story"></i>
+            </span>
+            <span class="raiting" id="like-count-{{ story['id'] }}">{{ story['likes'] }}</span>
+            <span class="votes">
+                <i class="bi bi-hand-thumbs-down dislike-button" data-id="{{ story['id'] }}" data-type="story"></i>
+            </span>
+            ]
         </span>
         <div class="content">
             {{ story['text'] }}
@@ -27,43 +30,78 @@
 </div>
 
 <h1>Comments ({{ com_count }})</h1>
-    {% if comments != None %}
-    <div class="view-content">
+<div class="view-content">
+    {% if comments %}
         <div class="post cit_395664">
             {% for comment in comments %}
                 <div style="margin-top:15px">
-                    <strong>{{ comment['username'] }}</strong>
-                    {% for i in range (47) %}
-                    &#4448;
-                    {% endfor %}
-                    <span class="votes">
-                        <a class="cit_plus" href="/com_like/{{ comment['id'] }}">+</a> / <a class="cit_minus" href="/com_dislike/{{ comment['id'] }}">−</a>
-                    </span>
-                    <span class="raiting" style="margin-left:5px">( {{ comment['likes'] }} )</span>
+                    <div class="user-info">
+                        <img src="{{ url_for('static', filename=comment.user.profile_picture_url) }}" alt="User Avatar">
+                        <strong>{{ comment.user.username }}</strong>
+                    </div>
+                   <span class="votes">
+    <i class="bi bi-hand-thumbs-up like-button" data-id="{{ comment['id'] }}" data-type="comment"></i>
+    <i class="bi bi-hand-thumbs-down dislike-button" data-id="{{ comment['id'] }}" data-type="comment"></i>
+</span>
+                    <span class="raiting" id="like-count-{{ comment['id'] }}" style="margin-left:5px">({{ comment['likes'] }})</span>
                     <div class="content">{{ comment['text'] }}</div>
                 </div>
             {% endfor %}
         </div>
-    </div>
     {% else %}
         <p>There are no comments for this story yet. You can be the first.</p>
     {% endif %}
-        <br>
-        {% if username == None %}
-            <p>You are not authorized. <a href="/login">Log in</a> or <a href="/register">register</a> to leave a comment.</p>
-        {% else %}
-            <form action="/post/{{ story['id'] }}" method="post">
-                <div class="form-group">
-                    <label for="exampleFormControlTextarea1">Comment</label>
-                    {% if error == None %}
-                        <textarea type="text" name="message" class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-                    {% else %}
-                        <textarea type="text" name="message" class="form-control is-invalid" rows="3"></textarea>
-                        <div class="invalid-feedback">Please fill this field.</div>
-                    {% endif %}
-                </div>
-                <p style="margin-bottom:10px">You are authorized as <b>{{ username }}</b>.</p>
-                <button type="submit" style="btn btm-primary">Leave a comment</button>
-            </form>
-        {% endif %}
+</div>
+
+<br>
+{% if username is none %}
+    <p>You are not authorized. <a href="/login">Log in</a> or <a href="/register">register</a> to leave a comment.</p>
+{% else %}
+    <form action="/post/{{ story['id'] }}" method="post">
+        <div class="form-group">
+            <label for="exampleFormControlTextarea1">Comment</label>
+            {% if error is none %}
+                <textarea name="message" class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+            {% else %}
+                <textarea name="message" class="form-control is-invalid" rows="3"></textarea>
+                <div class="invalid-feedback">Please fill this field.</div>
+            {% endif %}
+        </div>
+        <p style="margin-bottom:10px">You are authorized as <b>{{ username }}</b>.</p>
+        <button type="submit" class="btn btn-primary">Leave a comment</button>
+    </form>
+{% endif %}
+
+<script>
+// Fonction pour aimer un commentaire
+$(document).on('click', '.like-button', function() {
+    let commentId = $(this).data('id');
+    $.post(`/com_like/${commentId}`, function(data) {
+        if (data.success) {
+            let countSpan = $(`#like-count-${commentId}`);
+            let currentLikes = parseInt(countSpan.text().replace(/\D/g, '')); // Extraire le nombre sans parenthèses
+            countSpan.text(currentLikes + 1);
+            console.log(`Comment ${commentId} liked. New likes: ${currentLikes + 1}`); // Log pour débogage
+        } else {
+            console.error(data.message); // Gérer l'erreur si le commentaire n'existe pas
+        }
+    });
+});
+
+// Fonction pour ne pas aimer un commentaire
+$(document).on('click', '.dislike-button', function() {
+    let commentId = $(this).data('id');
+    $.post(`/com_dislike/${commentId}`, function(data) {
+        if (data.success) {
+            let countSpan = $(`#like-count-${commentId}`);
+            let currentLikes = parseInt(countSpan.text().replace(/\D/g, '')); // Extraire le nombre sans parenthèses
+            countSpan.text(currentLikes - 1);
+            console.log(`Comment ${commentId} disliked. New likes: ${currentLikes - 1}`); // Log pour débogage
+        } else {
+            console.error(data.message); // Gérer l'erreur si le commentaire n'existe pas
+        }
+    });
+});
+</script>
+
 {% endblock %}
