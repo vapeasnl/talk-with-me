@@ -116,3 +116,54 @@ p, h1, h2, h3, h4 {
     font-size: 170%;
     margin-bottom: 0.75em;
 }
+
+#sidebar {
+    width: 250px;
+    background: #f8f9fa;
+    padding: 20px;
+    border-right: 1px solid #dee2e6; /* Ajoute une bordure à droite */
+}
+
+#sidebar h3 {
+    margin-bottom: 15px; /* Espacement entre le titre et les éléments du menu */
+}
+
+#sidebar ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+#sidebar ul li {
+    margin: 10px 0; /* Espacement entre les éléments du menu */
+}
+
+#sidebar ul li a {
+    text-decoration: none;
+    color: #007bff; /* Couleur des liens */
+}
+
+#sidebar ul li a:hover {
+    text-decoration: underline; /* Soulignement au survol */
+}
+
+
+.like-button {
+    color: green; /* Couleur verte pour le like */
+    cursor: pointer; /* Curseur en forme de main pour indiquer le clic */
+}
+
+.dislike-button {
+    color: red; /* Couleur rouge pour le dislike */
+    cursor: pointer; /* Curseur en forme de main pour indiquer le clic */
+}
+
+.like-button:hover, .dislike-button:hover {
+    opacity: 0.7; /* Réduit l'opacité au survol pour un effet visuel */
+}
+
+
+.user-info img {
+    width: 50px;  /* Ajustez la taille selon vos besoins */
+    height: 50px;
+    border-radius: 50%;  /* Pour les rendre ronds */
+}
