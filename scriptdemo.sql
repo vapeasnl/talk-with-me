@@ -8,7 +8,8 @@ CREATE TABLE users (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     username TEXT NOT NULL UNIQUE,
     email TEXT NOT NULL UNIQUE,
-    hash TEXT NOT NULL
+    hash TEXT NOT NULL,
+    profile_picture_url TEXT  -- Add this line for avatar URL
 );
 
 -- Create Stories Table
@@ -32,18 +33,20 @@ CREATE TABLE comments (
     FOREIGN KEY (story_id) REFERENCES stories (id)
 );
 
--- Insert Sample Users
-INSERT INTO users (username, email, hash) VALUES
-('user1', 'user1@example.com', 'hashed_password1'),
-('user2', 'user2@example.com', 'hashed_password2'),
-('user3', 'user3@example.com', 'hashed_password3'),
-('user4', 'user4@example.com', 'hashed_password4'),
-('user5', 'user5@example.com', 'hashed_password5'),
-('user6', 'user6@example.com', 'hashed_password6'),
-('user7', 'user7@example.com', 'hashed_password7'),
-('user8', 'user8@example.com', 'hashed_password8'),
-('user9', 'user9@example.com', 'hashed_password9'),
-('user10', 'user10@example.com', 'hashed_password10');
+
+
+-- Insert Sample Users with Avatars
+INSERT INTO users (username, email, hash, avatar) VALUES
+('user1', 'user1@example.com', 'hashed_password1', 'avatar1.png'),
+('user2', 'user2@example.com', 'hashed_password2', 'avatar2.png'),
+('user3', 'user3@example.com', 'hashed_password3', 'avatar3.png'),
+('user4', 'user4@example.com', 'hashed_password4', 'avatar4.png'),
+('user5', 'user5@example.com', 'hashed_password5', 'avatar5.png'),
+('user6', 'user6@example.com', 'hashed_password6', 'avatar6.png'),
+('user7', 'user7@example.com', 'hashed_password7', 'avatar7.png'),
+('user8', 'user8@example.com', 'hashed_password8', 'avatar8.png'),
+('user9', 'user9@example.com', 'hashed_password9', 'avatar9.png'),
+('user10', 'user10@example.com', 'hashed_password10', 'avatar10.png');
 
 -- Insert Sample Stories
 INSERT INTO stories (user_id, title, text) VALUES 
