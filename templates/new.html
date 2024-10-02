@@ -11,47 +11,81 @@
 {% endblock %}
 
 {% block body %}
-    <div class="view-content">
-        {% for story in stories %}
-            <div class="post cit_395664">
-                <span class="number"><a href="/post/{{ story.id }}">#{{ story.id }}</a></span>
-                <span class="time">{{ story.datetime }}</span>
-                <span class="post_id">
-                    [
-                    <span class="votes">
-                        <a class="cit_plus" href="/like/{{ story.id }}/{{ from_where }}">+</a>
-                    </span>
-                    <span class="raiting">{{ story.likes }}</span>
-                    <span class="votes">
-                        <a class="cit_minus" href="/dislike/{{ story.id }}/{{ from_where }}">−</a>
-                    </span>
-                    ]
+<div class="view-content">
+    {% for story in stories %}
+        <div class="post cit_395664">
+            <div class="user-info">
+                <img src="{{ url_for('static', filename=story.author.profile_picture_url) }}" alt="User Avatar">
+                <span>{{ story.author.username }}</span>
+            </div>
+            <span class="number"><a href="/post/{{ story.id }}">#{{ story.id }}</a></span>
+            <span class="time">{{ story.datetime }}</span>
+            <span class="post_id">
+                [
+                <span class="votes">
+                    <i class="bi bi-hand-thumbs-up like-button" data-id="{{ story.id }}" data-type="story"></i>
                 </span>
-                <div class="content">{{ story.text }}</div>
-                <span><a href="/post/{{ story.id }}">Comments</a> ({{ story.comments }})</span>
-            </div>
-        {% endfor %}
+                <span class="raiting" id="like-count-{{ story.id }}">{{ story.likes }}</span> <!-- Compteur de likes -->
+                <span class="votes">
+                    <i class="bi bi-hand-thumbs-down dislike-button" data-id="{{ story.id }}" data-type="story"></i>
+                </span>
+                ]
+            </span>
+            <div class="content">{{ story.text }}</div>
+            <span><a href="/post/{{ story.id }}">Comments</a> ({{ story.comments|length }})</span>
+        </div>
+    {% endfor %}
 
-        {% if from_where == "random" %}
-            <a href="/random" class="btn btn-dark btn-lg btn-block" style="text-decoration:none; color:white">Other stories</a>
-        {% elif pages_count > 1 %}
-            <div style="margin-left:457px">
-                <nav aria-label="...">
-                    <ul class="pagination">
-                        <li class="page-item {% if current_page == 1 %}disabled{% endif %}">
-                            <a class="page-link" href="{% if current_page > 1 %}/new/page/{{ current_page - 1 }}{% else %}#{% endif %}" tabindex="-1">&laquo;</a>
+    {% if from_where == "random" %}
+        <a href="/random" class="btn btn-dark btn-lg btn-block" style="text-decoration:none; color:white">Other stories</a>
+    {% elif pages_count > 1 %}
+        <div style="margin-left:457px">
+            <nav aria-label="...">
+                <ul class="pagination">
+                    <li class="page-item {% if current_page == 1 %}disabled{% endif %}">
+                        <a class="page-link" href="{% if current_page > 1 %}/new/page/{{ current_page - 1 }}{% else %}#{% endif %}" tabindex="-1">&laquo;</a>
+                    </li>
+                    {% for i in range(1, pages_count + 1) %}
+                        <li class="page-item {% if i == current_page %}active{% endif %}">
+                            <a class="page-link" href="/new/page/{{ i }}">{{ i }}</a>
                         </li>
-                        {% for i in range(1, pages_count + 1) %}
-                            <li class="page-item {% if i == current_page %}active{% endif %}">
-                                <a class="page-link" href="/new/page/{{ i }}">{{ i }}</a>
-                            </li>
-                        {% endfor %}
-                        <li class="page-item {% if current_page == pages_count %}disabled{% endif %}">
-                            <a class="page-link" href="{% if current_page < pages_count %}/new/page/{{ current_page + 1 }}{% else %}#{% endif %}">&raquo;</a>
-                        </li>
-                    </ul>
-                </nav>
-            </div>
-        {% endif %}
-    </div>
+                    {% endfor %}
+                    <li class="page-item {% if current_page == pages_count %}disabled{% endif %}">
+                        <a class="page-link" href="{% if current_page < pages_count %}/new/page/{{ current_page + 1 }}{% else %}#{% endif %}">&raquo;</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    {% endif %}
+</div>
+
+<script>
+    // Fonction pour aimer une histoire
+    $('.like-button').on('click', function() {
+        let postId = $(this).data('id');
+        let type = $(this).data('type');
+        $.post(`/like/${postId}/${type}`, function(data) {
+            if (data.success) {
+                // Mettez à jour le compteur de likes
+                let countSpan = $(`#like-count-${postId}`);
+                let currentLikes = parseInt(countSpan.text());
+                countSpan.text(currentLikes + 1);
+            }
+        });
+    });
+
+    // Fonction pour ne pas aimer une histoire
+    $('.dislike-button').on('click', function() {
+        let postId = $(this).data('id');
+        let type = $(this).data('type');
+        $.post(`/dislike/${postId}/${type}`, function(data) {
+            if (data.success) {
+                // Mettez à jour le compteur de likes
+                let countSpan = $(`#like-count-${postId}`);
+                let currentLikes = parseInt(countSpan.text());
+                countSpan.text(currentLikes - 1);
+            }
+        });
+    });
+</script>
 {% endblock %}
