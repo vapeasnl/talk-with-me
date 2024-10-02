@@ -50,6 +50,21 @@
             <small id="emailHelp" class="form-text text-muted">Confirm your password.</small>
         {% endif %}
       </div>
-      <button type="submit" class="btn btn-primary">Register</button>
+        
+<div class="form-group">
+    <label for="avatar">Choose an avatar</label>
+    <div>
+      {% for i in range(1, 11) %}
+        <input type="radio" id="avatar{{ i }}" name="avatar" value="avatar{{ i }}.png"> <!-- Cacher l'input radio -->
+        <label for="avatar{{ i }}" style="cursor: pointer; margin-right: 10px;">
+            <img src="{{ url_for('static', filename='avatar' ~ i ~ '.png') }}" alt="Avatar {{ i }}" style="width: 40px; height: 40px;">
+        </label>
+      {% endfor %}
+    </div>
+</div>
+
+
+<button type="submit" class="btn btn-primary">Register</button>
+
     </form>
 {% endblock %}
