@@ -51,7 +51,7 @@ Ensure you have the following installed on your system:
 5. **Run the Application:**
    Start the development server using Flask:
    ```bash
-   export FLASK_APP=application.py
+   export FLASK_APP=app.py
    flask run
    ```
 
