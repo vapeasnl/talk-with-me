@@ -36,7 +36,7 @@ CREATE TABLE comments (
 
 
 -- Insert Sample Users with Avatars
-INSERT INTO users (username, email, hash, avatar) VALUES
+INSERT INTO users (username, email, hash, profile_picture_url) VALUES
 ('user1', 'user1@example.com', 'hashed_password1', 'avatar1.png'),
 ('user2', 'user2@example.com', 'hashed_password2', 'avatar2.png'),
 ('user3', 'user3@example.com', 'hashed_password3', 'avatar3.png'),
