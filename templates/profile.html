@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block body %}
+<div class="profile-form">
+    <form action="/profile/{{ user.id }}" method="post" enctype="multipart/form-data">
+        <div>
+            <label for="username">Username</label>
+            <input type="text" id="username" name="username" value="{{ user.username }}">
+        </div>
+        <div>
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" value="{{ user.email }}">
+        </div>
+        <div>
+            <label for="profile_picture">Profile Picture</label>
+            <input type="file" id="profile_picture" name="profile_picture">
+            <img src="{{ user.profile_picture_url }}" alt="Profile Picture" style="width: 100px; height: 100px;">
+        </div>
+        <button type="submit">Save Changes</button>
+    </form>
+</div>
+{% endblock %}

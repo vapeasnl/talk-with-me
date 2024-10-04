@@ -1,5 +1,8 @@
 from models import Comment
+from better_profanity import profanity
 
+def filter_bad_words(text):
+    return profanity.censor(text)
 
 def get_coms_count(story):
     # Utilisez story_id pour filtrer les commentaires
