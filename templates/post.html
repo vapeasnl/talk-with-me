@@ -25,6 +25,12 @@
         </span>
         <div class="content">
             {{ story['text'] }}
+            {% if session.get('user_id') == story.author.id %}
+                <a href="/edit_post/{{ story['id'] }}" class="btn btn-secondary btn-sm">Edit</a>
+                <form action="/delete_post/{{ story['id'] }}" method="post" style="display:inline;">
+                    <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                </form>
+            {% endif %}
         </div>
     </div>
 </div>
@@ -40,11 +46,19 @@
                         <strong>{{ comment.user.username }}</strong>
                     </div>
                    <span class="votes">
-    <i class="bi bi-hand-thumbs-up like-button" data-id="{{ comment['id'] }}" data-type="comment"></i>
-    <i class="bi bi-hand-thumbs-down dislike-button" data-id="{{ comment['id'] }}" data-type="comment"></i>
-</span>
-                    <span class="raiting" id="like-count-{{ comment['id'] }}" style="margin-left:5px">({{ comment['likes'] }})</span>
-                    <div class="content">{{ comment['text'] }}</div>
+                       <i class="bi bi-hand-thumbs-up like-button" data-id="{{ comment['id'] }}" data-type="comment"></i>
+                       <i class="bi bi-hand-thumbs-down dislike-button" data-id="{{ comment['id'] }}" data-type="comment"></i>
+                   </span>
+                   <span class="raiting" id="like-count-{{ comment['id'] }}" style="margin-left:5px">({{ comment['likes'] }})</span>
+                   <div class="content">
+                       {{ comment['text'] }}
+                       {% if session.get('user_id') == comment.user.id %}
+                           <a href="/edit_comment/{{ comment['id'] }}" class="btn btn-secondary btn-sm">Edit</a>
+                           <form action="/delete_comment/{{ comment['id'] }}" method="post" style="display:inline;">
+                               <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                           </form>
+                       {% endif %}
+                   </div>
                 </div>
             {% endfor %}
         </div>
