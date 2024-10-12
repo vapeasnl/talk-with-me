@@ -1,82 +1,26 @@
+<!-- templates/base.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <title>{% block title %}{% endblock %} - TALK WITH ME</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="/static/style.css">
     <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
-    
-    <style>
-        body {
-            background-image: url("{{ url_for('static', filename='background.jpg') }}");
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed;
-        }
-
-        .navbar-nav .nav-link {
-            font-weight: 500;
-            font-size: 14px;
-            color: #ffffff !important;
-            padding-right: 10px;
-        }
-
-        .navbar-nav .nav-item {
-            margin-right: 15px;
-        }
-
-        .form-inline .form-control {
-            margin-right: 10px;
-            border-radius: 20px;
-            width: 150px;
-        }
-
-        .form-inline .btn {
-            border-radius: 20px;
-        }
-
-        @media (max-width: 992px) {
-            .navbar-nav {
-                flex-direction: column;
-            }
-
-            .form-inline .form-control {
-                width: 100%;
-            }
-        }
-
-        footer {
-            background-color: #343a40;
-            color: white;
-            padding: 10px 0;
-            text-align: center;
-        }
-
-        footer a {
-            color: #ffffff;
-            text-decoration: none;
-        }
-
-        footer a:hover {
-            text-decoration: underline;
-        }
- 
-</style>
 </head>
 <body>
-    <div class="container" style="background:white; padding:0px;">
+    <div class="container bg-white p-0">
         <!-- Navbar -->
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
 
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav mr-auto">
+                <ul class="navbar-nav me-auto">
                     <li class="nav-item">
                         <a class="nav-link" href="/about">Welcome</a>
                     </li>
@@ -97,65 +41,59 @@
                     </li>
                     <!-- Dropdown for Story -->
                     <li class="nav-item dropdown">
-    <a class="nav-link dropdown-toggle" href="#" id="storyDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        Story
-    </a>
-    <div class="dropdown-menu" aria-labelledby="storyDropdown">
-        <a class="dropdown-item" href="/new">New</a>
-        <a class="dropdown-item" href="/top">Top</a>
-        <a class="dropdown-item" href="/random">Random</a>
-        {% if session.user_id %}  <!-- Vérifie si l'utilisateur est connecté -->
-            <a class="dropdown-item" href="/add">Add a Story</a>
-        {% endif %}
-    </div>
-</li>
-
+                        <a class="nav-link dropdown-toggle" href="#" id="storyDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Story
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="storyDropdown">
+                            <li><a class="dropdown-item" href="/new">New</a></li>
+                            <li><a class="dropdown-item" href="/top">Top</a></li>
+                            <li><a class="dropdown-item" href="/random">Random</a></li>
+                            {% if session.user_id %}
+                                <li><a class="dropdown-item" href="/add">Add a Story</a></li>
+                            {% endif %}
+                        </ul>
+                    </li>
                 </ul>
 
-<span class="navbar-text">
-    {% if session.get('user_id') %}
-        <a href="/logout" class="btn btn-outline-light">Log out</a>
-    {% else %}
-        <a href="/login" class="btn btn-outline-light">Log in</a>
-        <a href="/register" class="btn btn-outline-light">Register</a>
-    {% endif %}
-</span>
-
-                <form class="form-inline my-2 my-lg-0" action="/search">
-                    <input name="subject" class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-                    <button class="btn btn-outline-info my-2 my-sm-0" type="submit">Search</button>
+                <span class="navbar-text">
+                    {% if session.get('user_id') %}
+                        <a href="/logout" class="btn btn-outline-light">Log out</a>
+                        <a href="/profile" class="btn btn-outline-light">Profile</a>
+                    {% else %}
+                        <a href="/login" class="btn btn-outline-light">Log in</a>
+                        <a href="/register" class="btn btn-outline-light">Register</a>
+                    {% endif %}
+                </span>
+                <form class="d-flex my-2 my-lg-0" action="/search">
+                    <input name="subject" class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-outline-info" type="submit">Search</button>
                 </form>
             </div>
         </nav>
 
-
-
-
         <!-- Main Content -->
-        <div style="margin:30px">
+        <div class="mt-4 mx-3">
             {% block body %}
             {% endblock %}
         </div>
 
         <!-- Footer -->
-        <footer class="text-center">
+        <footer class="text-center mt-4">
             <p>&copy; 2024 Talk With Me by ASNL-dev. All Rights Reserved.</p>
             <p>
-                <a href="#" data-toggle="modal" data-target="#privacyModal">Privacy Policy</a> | 
-                <a href="#" data-toggle="modal" data-target="#termsModal">Terms of Service</a>
+                <a href="#" data-bs-toggle="modal" data-bs-target="#privacyModal">Privacy Policy</a> | 
+                <a href="#" data-bs-toggle="modal" data-bs-target="#termsModal">Terms of Service</a>
             </p>
         </footer>
     </div>
 
     <!-- Privacy Policy Modal -->
-    <div class="modal fade" id="privacyModal" tabindex="-1" role="dialog" aria-labelledby="privacyModalLabel" aria-hidden="true">
+    <div class="modal fade" id="privacyModal" tabindex="-1" aria-labelledby="privacyModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="privacyModalLabel">Privacy Policy</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body" style="max-height: 70vh; overflow-y: auto;">
                     <h2>Your Privacy is Important</h2>
@@ -172,21 +110,19 @@
                     <p>We may update this policy from time to time. If we make significant changes, we will notify you via email or by posting a prominent notice on our website. We encourage you to review this policy periodically for the latest information on our privacy practices.</p>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                 </div>
             </div>
         </div>
     </div>
 
     <!-- Terms of Service Modal -->
-    <div class="modal fade" id="termsModal" tabindex="-1" role="dialog" aria-labelledby="termsModalLabel" aria-hidden="true">
+    <div class="modal fade" id="termsModal" tabindex="-1" aria-labelledby="termsModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="termsModalLabel">Terms of Service</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body" style="max-height: 70vh; overflow-y: auto;">
                     <h2>Welcome to Talk With Me</h2>
@@ -205,58 +141,11 @@
                     <p>We may update these terms from time to time. Your continued use of our services after any changes to these terms constitutes your acceptance of the new terms.</p>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                 </div>
             </div>
         </div>
     </div>
 
-    <script>
-        // Function to like a story
-        function likeStory(id) {
-            const likeButton = $(.like-button[data-id="${id}"]);
-            likeButton.prop('disabled', true); // Disable the button
-            fetch(/like/${id}, { method: 'POST' })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        const likeCountElement = $(#like-count-${id});
-                        likeCountElement.text(data.likes);
-                    } else {
-                        alert('Error liking the story. Please try again.');
-                    }
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                    alert('An error occurred. Please try again.');
-                })
-                .finally(() => {
-                    likeButton.prop('disabled', false); // Re-enable the button
-                });
-        }
-
-        // Function to dislike a story
-        function unlikeStory(id) {
-            const dislikeButton = $(.dislike-button[data-id="${id}"]);
-            dislikeButton.prop('disabled', true); // Disable the button
-            fetch(/dislike/${id}, { method: 'POST' })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        const likeCountElement = $(#like-count-${id});
-                        likeCountElement.text(data.likes);
-                    } else {
-                        alert('Error disliking the story. Please try again.');
-                    }
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                    alert('An error occurred. Please try again.');
-                })
-                .finally(() => {
-                    dislikeButton.prop('disabled', false); // Re-enable the button
-                });
-        }
-    </script>
 </body>
 </html>

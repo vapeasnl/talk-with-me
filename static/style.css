@@ -30,10 +30,14 @@ a:hover {
     margin-right: 15px; /* Space between navbar links */
 }
 
-.nav-link {
+.nav-link, .navbar-nav .nav-link {
     font-size: 16px; /* Readable font size */
     padding: 10px 15px; /* Increase padding for better appearance */
     white-space: nowrap; /* Prevent links from wrapping to next line */
+    font-weight: 500;
+    font-size: 14px;
+    color: #ffffff !important;
+    padding-right: 10px;
 }
 
 .navbar {
@@ -49,10 +53,17 @@ a:hover {
     .nav-item {
         margin-bottom: 10px; /* Space between stacked nav links */
     }
+
+    .form-inline .form-control {
+        width: 100%;
+    }
 }
 
-/* Body Styles */
 body {
+    background-attachment: fixed;
+    background-image: url("/static/background.jpg");
+    background-size: cover;
+    background-position: center;
     font-family: Arial, sans-serif;
     font-size: 16px;
     color: #333;
@@ -146,7 +157,6 @@ p, h1, h2, h3, h4 {
     text-decoration: underline; /* Soulignement au survol */
 }
 
-
 .like-button {
     color: green; /* Couleur verte pour le like */
     cursor: pointer; /* Curseur en forme de main pour indiquer le clic */
@@ -161,9 +171,109 @@ p, h1, h2, h3, h4 {
     opacity: 0.7; /* Réduit l'opacité au survol pour un effet visuel */
 }
 
-
 .user-info img {
     width: 50px;  /* Ajustez la taille selon vos besoins */
     height: 50px;
     border-radius: 50%;  /* Pour les rendre ronds */
+}
+
+/* Comment Section Styling */
+.comment {
+    margin-left: 20px;
+    margin-top: 10px;
+    padding: 10px;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.comment .author {
+    font-weight: bold;
+    color: #123D7F;
+}
+
+.comment .timestamp {
+    font-size: 0.85em;
+    color: #777;
+}
+
+.comment .text {
+    margin-top: 10px;
+    line-height: 1.5;
+}
+
+.comment .actions {
+    margin-top: 10px;
+}
+
+.comment .actions .like-button,
+.comment .actions .dislike-button {
+    margin-right: 10px;
+    cursor: pointer;
+    color: #123D7F;
+}
+
+.comment .actions .like-button:hover,
+.comment .actions .dislike-button:hover {
+    opacity: 0.7;
+}
+
+/* Additional Styles from base.html */
+.form-inline .form-control {
+    margin-right: 10px;
+    border-radius: 20px;
+    width: 150px;
+}
+
+.form-inline .btn {
+    border-radius: 20px;
+}
+
+footer {
+    background-color: #343a40;
+    color: white;
+    padding: 10px 0;
+    text-align: center;
+}
+
+footer a {
+    color: #ffffff;
+    text-decoration: none;
+}
+
+footer a:hover {
+    text-decoration: underline;
+}
+
+#audio-player-container {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background-color: #343a40;
+    color: white;
+    padding: 10px 0;
+    text-align: center;
+    z-index: 1000;
+}
+
+#audio-player {
+    width: 100%;
+}
+
+/* Avatar Selection Styles */
+.avatar-label {
+    cursor: pointer;  /* Cursor changes to pointer when hovering over avatars */
+    margin-right: 10px;  /* Adds spacing between avatars */
+}
+
+.avatar-img {
+    width: 40px;  /* Ensures the avatar images have a consistent width */
+    height: 40px;  /* Ensures the avatar images have a consistent height */
+    border-radius: 50%;  /* Makes avatars round */
+    border: 2px solid transparent;  /* Adds a border, initially transparent */
+    transition: border-color 0.3s;  /* Smooth transition for border color on hover */
+}
+
+.avatar-img:hover {
+    border-color: #123D7F;  /* Change border color on hover for a visual cue */
 }

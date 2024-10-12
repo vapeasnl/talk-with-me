@@ -1,21 +1,122 @@
 {% extends "base.html" %}
 {% block body %}
 <div class="profile-form">
-    <form action="/profile/{{ user.id }}" method="post" enctype="multipart/form-data">
-        <div>
-            <label for="username">Username</label>
-            <input type="text" id="username" name="username" value="{{ user.username }}">
+    <button type="button" data-toggle="modal" data-target="#editProfileModal">Edit Profile</button>
+
+    <!-- Edit Profile Modal -->
+    <div class="modal fade" id="editProfileModal" tabindex="-1" role="dialog" aria-labelledby="editProfileModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editProfileModalLabel">Edit Profile</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form action="/profile" method="post" enctype="multipart/form-data">
+                        <input type="hidden" name="update_profile" value="1">
+                        <div>
+                            <label for="username">Username</label>
+                            <input type="text" id="username" name="username" value="{{ user.username }}">
+                        </div>
+                        <div>
+                            <label for="email">Email</label>
+                            <input type="email" id="email" name="email" value="{{ user.email }}">
+                        </div>
+                        <div>
+                            <label for="new_password">New Password</label>
+                            <input type="password" id="new_password" name="new_password">
+                        </div>
+                        <div>
+                            <label>Profile Picture</label>
+                            <div>
+                                {% for i in range(1, 11) %}
+                                    <input type="radio" id="avatar{{ i }}" name="profile_picture" value="avatar{{ i }}.png" {% if user.profile_picture_url.endswith('avatar' ~ i ~ '.png') %} checked {% endif %}>
+                                    <label for="avatar{{ i }}" class="avatar-label">
+                                        <img src="{{ url_for('static', filename='avatar' ~ i ~ '.png') }}" alt="Avatar {{ i }}" class="avatar-img">
+                                    </label>
+                                {% endfor %}
+                            </div>
+                        </div>
+                        <button type="submit">Save Changes</button>
+                    </form>
+                </div>
+            </div>
         </div>
-        <div>
-            <label for="email">Email</label>
-            <input type="email" id="email" name="email" value="{{ user.email }}">
-        </div>
-        <div>
-            <label for="profile_picture">Profile Picture</label>
-            <input type="file" id="profile_picture" name="profile_picture">
-            <img src="{{ user.profile_picture_url }}" alt="Profile Picture" style="width: 100px; height: 100px;">
-        </div>
-        <button type="submit">Save Changes</button>
-    </form>
+    </div>
+</div>
+
+<div>
+    <h2>My Published Stories</h2>
+    <p>You have published {{ published_stories|length }} stories.</p>
+    <ul>
+        {% for story in published_stories %}
+            <li>
+                <h3>{{ story.title }}</h3>
+                <p>{{ story.text }}</p>
+                <form action="/profile" method="post" style="display: inline;">
+                    <input type="hidden" name="story_id" value="{{ story.id }}">
+                    <button type="submit" name="delete_story">Delete Story</button>
+                </form>
+                <button type="button" data-toggle="modal" data-target="#editStoryModal{{ story.id }}">Edit Story</button>
+
+                <!-- Edit Story Modal -->
+                <div class="modal fade" id="editStoryModal{{ story.id }}" tabindex="-1" role="dialog" aria-labelledby="editStoryModalLabel{{ story.id }}" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="editStoryModalLabel{{ story.id }}">Edit Story</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <form action="/profile" method="post">
+                                    <input type="hidden" name="update_story" value="1">
+                                    <input type="hidden" name="story_id" value="{{ story.id }}">
+                                    <div>
+                                        <label for="title{{ story.id }}">Title</label>
+                                        <input type="text" id="title{{ story.id }}" name="title" value="{{ story.title }}">
+                                    </div>
+                                    <div>
+                                        <label for="text{{ story.id }}">Text</label>
+                                        <textarea id="text{{ story.id }}" name="text">{{ story.text }}</textarea>
+                                    </div>
+                                    <button type="submit">Save Changes</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <h4>Comments:</h4>
+                <ul>
+                    {% for comment in story.comments %}
+                        <li>{{ comment.text }}</li>
+                    {% endfor %}
+                </ul>
+            </li>
+        {% endfor %}
+    </ul>
+</div>
+
+<div>
+    <h2>Stories I've Commented On</h2>
+    <p>You have commented on {{ commented_stories|length }} stories.</p>
+    <ul>
+        {% for story in commented_stories %}
+            <li>
+                <h3>{{ story.title }}</h3>
+                <p>{{ story.text }}</p>
+                <h4>Comments:</h4>
+                <ul>
+                    {% for comment in story.comments %}
+                        <li>{{ comment.text }}</li>
+                    {% endfor %}
+                </ul>
+            </li>
+        {% endfor %}
+    </ul>
 </div>
 {% endblock %}

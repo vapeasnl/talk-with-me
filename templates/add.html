@@ -9,7 +9,7 @@
 </div>
 
 {% if error != None %}
-<div class="alert alert-danger" role="alert">
+<div class="alert alert-danger" role="alert" aria-live="assertive">
     {{ error }}
 </div>
 {% endif %}
@@ -17,12 +17,12 @@
 <form action="{{ url_for('add') }}" method="post">
     <div class="mb-3">
         {% if user_id == None %}
-            <label for="exampleFormControlInput1" class="form-label">Email address:</label>
-            <input type="email" name="email" class="form-control {% if error == 1 %}is-invalid{% endif %}" id="exampleFormControlInput1" placeholder="name@example.com" value="{{ email }}">
+            <label for="emailInput" class="form-label">Email address:</label>
+            <input type="email" name="email" class="form-control {% if error == 1 %}is-invalid{% endif %}" id="emailInput" placeholder="name@example.com" value="{{ email }}" aria-describedby="emailHelp">
             <div class="invalid-feedback">
                 Please provide your email.
             </div>
-            <small class="form-text text-muted">We won't share your email with anyone else or use it for sending spam.</small>
+            <small id="emailHelp" class="form-text text-muted">We won't share your email with anyone else or use it for sending spam.</small>
         {% endif %}
     </div>
     <div class="mb-3">
@@ -33,8 +33,8 @@
         </div>
     </div>
     <div class="mb-3">
-        <label for="exampleFormControlTextarea1" class="form-label">Story:</label>
-        <textarea name="story" class="form-control {% if error == 2 %}is-invalid{% endif %}" id="exampleFormControlTextarea1" rows="3">{{ story }}</textarea>
+        <label for="storyTextarea" class="form-label">Story:</label>
+        <textarea name="story" class="form-control {% if error == 2 %}is-invalid{% endif %}" id="storyTextarea" rows="3">{{ story }}</textarea>
         <div class="invalid-feedback">
             Please provide the text of your story.
         </div>

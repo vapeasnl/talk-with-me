@@ -1,136 +1,125 @@
--- Drop tables if they exist
-DROP TABLE IF EXISTS comments;
-DROP TABLE IF EXISTS stories;
-DROP TABLE IF EXISTS users;
+-- demo.sql
 
--- Create Users Table
-CREATE TABLE users (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    username TEXT NOT NULL UNIQUE,
-    email TEXT NOT NULL UNIQUE,
-    hash TEXT NOT NULL,
-    profile_picture_url TEXT  -- Add this line for avatar URL
-);
+-- Delete existing data
+DELETE FROM user_action;
+DELETE FROM comments;
+DELETE FROM stories;
+DELETE FROM users;
 
--- Create Stories Table
-CREATE TABLE stories (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    user_id INTEGER NOT NULL,
-    title TEXT NOT NULL,
-    text TEXT NOT NULL,
-    likes INTEGER DEFAULT 0,
-    FOREIGN KEY (user_id) REFERENCES users (id)
-);
-
--- Create Comments Table
-CREATE TABLE comments (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    user_id INTEGER NOT NULL,
-    story_id INTEGER NOT NULL,
-    text TEXT NOT NULL,
-    likes INTEGER DEFAULT 0,
-    FOREIGN KEY (user_id) REFERENCES users (id),
-    FOREIGN KEY (story_id) REFERENCES stories (id)
-);
+-- Insert Users
+INSERT INTO users (username, email, password, profile_picture_url) VALUES
+('q', 'q@q.q', 'q', 'avatar0.png'),
+('Mark', 'mark@example.com', 'password1', 'avatar0.png'),
+('Jack', 'jack@example.com', 'password2', 'avatar1.png'),
+('Emily', 'emily@example.com', 'password3', 'avatar6.png'),
+('Sophia', 'sophia@example.com', 'password4', 'avatar7.png'),
+('Lucas', 'lucas@example.com', 'password5', 'avatar4.png'),
+('Mia', 'mia@example.com', 'password6', 'avatar6.png'),
+('Oliver', 'oliver@example.com', 'password7', 'avatar5.png'),
+('Ava', 'ava@example.com', 'password8', 'avatar7.png'),
+('Liam', 'liam@example.com', 'password9', 'avatar8.png'),
+('Noah', 'noah@example.com', 'password10', 'avatar9.png'),
+('Isabella', 'isabella@example.com', 'password11', 'avatar6.png'),
+('Charlotte', 'charlotte@example.com', 'password12', 'avatar7.png'),
+('Ella', 'ella@example.com', 'password13', 'avatar6.png'),
+('James', 'james@example.com', 'password14', 'avatar2.png'),
+('Benjamin', 'benjamin@example.com', 'password15', 'avatar3.png'),
+('Ethan', 'ethan@example.com', 'password16', 'avatar4.png'),
+('Aiden', 'aiden@example.com', 'password17', 'avatar5.png'),
+('Grace', 'grace@example.com', 'password18', 'avatar7.png'),
+('Chloe', 'chloe@example.com', 'password19', 'avatar6.png'),
+('Daniel', 'daniel@example.com', 'password20', 'avatar8.png');
 
 
+-- Insert Stories
+INSERT INTO stories (title, content, user_id, likes, dislikes, datetime) VALUES
+('A Journey through the Mountains', 'In the serene beauty of the mountains, I discovered a world untouched by time. The air was crisp, and the scenery breathtaking. Each step I took resonated with the echoes of nature, guiding me through valleys and peaks that told stories of ancient legends. The further I ventured, the more I felt a deep connection to the land, as if the mountains themselves were whispering secrets to me. I encountered streams that glistened in the sunlight and meadows adorned with vibrant wildflowers. Each moment spent among the towering pines filled my heart with peace. The sounds of distant waterfalls played a soothing melody, creating a perfect harmony with the rustling leaves. This journey was not just a physical one; it was a spiritual awakening, a reminder of the beauty that lies beyond the chaos of daily life. I paused to reflect at the summit, feeling small yet profoundly connected to the universe around me. The sunset painted the sky in hues of orange and purple, and I realized that this journey through the mountains was more than just an adventure; it was a celebration of life itself.', 1, 10, 2, '2024-10-05 18:12:35'),
+('A Day at the Beach', 'The sun blazed down on the golden sands as waves crashed against the shore. Laughter filled the air as families enjoyed their day, building sandcastles and splashing in the water. I felt the warmth of the sun and the cool breeze, a perfect day indeed. As I strolled along the shoreline, the soft sand squished between my toes, grounding me in the moment. The rhythmic sound of the waves was like nature’s lullaby, soothing my soul. Children chased after seagulls, their laughter mingling with the salty breeze, creating a symphony of joy. I settled down on my beach towel, sipping a cold drink while watching the surfers ride the waves. The sun’s rays danced on the water, creating a shimmering pathway that seemed to lead straight to paradise. As the day wore on, I joined a group playing beach volleyball, feeling the thrill of competition and camaraderie. With every dive and spike, I felt more alive. As the sun began to set, casting a golden glow over everything, I reflected on the simple joys of life. This day at the beach was a reminder to embrace each moment and cherish the beauty around us.', 2, 5, 1, '2024-10-07 14:45:22'),
+('A Culinary Adventure', 'I ventured into the heart of the city, where food stalls and restaurants beckoned with mouthwatering aromas. Each stall offered a unique flavor from a different corner of the world, tantalizing my senses and igniting my curiosity. I tasted dishes from around the globe, from spicy street tacos to delicate sushi rolls. Each bite was a celebration of culture and flavor, leaving me yearning for more. I found myself at a bustling night market, where the energy was infectious. Vendors called out, showcasing their culinary masterpieces with pride. I indulged in a fragrant bowl of pho, the savory broth warming my soul on a cool evening. Next, I tried crispy spring rolls, their crunch echoing my delight as I bit into them. The explosion of flavors was a revelation, a reminder of how food can connect us to places and people. As I made my way through the market, I stumbled upon a dessert stall offering exotic sweets. I couldn’t resist the mango sticky rice, its sweet creaminess transporting me to the tropical shores of Thailand. With each dish, I not only fed my hunger but also my spirit, discovering new traditions and stories behind each meal. This culinary adventure was a journey of taste, a feast for the senses that I would cherish forever.', 3, 8, 3, '2024-10-09 11:30:18'),
+('A Quiet Night Under the Stars', 'As the sun dipped below the horizon, the sky transformed into a canvas of stars. I lay on the grass, captivated by the twinkling lights above, pondering the vastness of the universe and my place within it. The air was cool and crisp, carrying the scent of fresh grass and blooming flowers. I felt a deep sense of peace envelop me as I stared up at the constellations. Each star seemed to tell a story, and I imagined the countless lives that had looked up at the same sky, dreaming and wondering just as I was. I listened to the gentle rustle of the leaves and the distant chirping of crickets, creating a symphony of nature that lulled me into a state of tranquility. As the night deepened, I reflected on my life, my dreams, and the connections I had made with others. I realized how small my worries seemed compared to the grandeur of the cosmos. Under the stars, I felt a profound sense of belonging, as if the universe was reminding me of my place in the grand tapestry of existence. The night was a reminder to cherish the moments of stillness and to always look up, for even in darkness, there is beauty.', 4, 15, 0, '2024-10-11 22:33:58'),
+('The Secrets of the Forest', 'Wandering through the dense forest, I felt a connection with the earth. The rustle of leaves and the chirping of birds created a symphony that calmed my soul. Each step deeper into the woods revealed hidden wonders. Sunlight filtered through the branches, casting dappled shadows on the forest floor. I paused to listen, letting the sounds of nature envelop me. The earthy scent of moss and damp soil filled my lungs, invigorating me. I discovered a hidden glade, where a crystal-clear stream gurgled over smooth stones. I knelt to touch the water, feeling its coolness against my skin, a refreshing reminder of nature’s purity. As I continued my exploration, I stumbled upon an ancient tree, its gnarled roots and towering trunk telling stories of resilience. I leaned against it, feeling its strength and wisdom seep into me. In this serene sanctuary, I embraced the solitude, allowing my thoughts to wander freely. Nature had a way of healing, of reminding me of the beauty in simplicity. My time in the forest was a journey of self-discovery, a chance to reconnect with the world around me and the quiet voice within.', 5, 20, 4, '2024-10-08 19:12:47'),
+('Exploring Ancient Ruins', 'The remnants of a once-great civilization stood before me, whispering tales of the past. Each stone held secrets, and as I explored, I felt a deep appreciation for history and the passage of time. The ruins were a testament to human ingenuity and resilience, each fragment telling a story of triumph and tragedy. I wandered through the crumbling archways, imagining the lives of those who walked these paths centuries ago. The intricate carvings on the stone walls spoke of artistry and devotion, and I marveled at the skill of the craftsmen who created them. The air was thick with history, and I felt a sense of reverence wash over me as I walked through the remnants of time. I climbed to the highest point, where the view stretched out before me, revealing the landscape that had witnessed the rise and fall of empires. Standing there, I reflected on the impermanence of life and the legacies we leave behind. This exploration was more than just a journey through ruins; it was a journey into the heart of humanity, a reminder that our stories continue long after we are gone.', 6, 7, 1, '2024-10-02 10:15:30'),
+('Chasing Waterfalls', 'I followed the sound of rushing water until I found a stunning waterfall cascading down the rocks. The sight was mesmerizing, and I couldn’t resist stepping closer to feel the refreshing spray on my face. The sun filtered through the leaves, creating a rainbow in the mist. I stood there, entranced, watching the water plunge into a crystal-clear pool below, the sound a soothing melody that echoed in my heart. I took a moment to breathe in the fresh, earthy scent of the surroundings, feeling invigorated by the beauty before me. As I explored the area, I discovered hidden paths leading to smaller falls, each one unique and enchanting. I spent hours there, losing track of time as I immersed myself in nature’s artistry. Each waterfall seemed to tell a different story, from the gentle trickle of a hidden stream to the thunderous roar of the main cascade. I realized that this chase was not just about the destination; it was about the journey, the experiences, and the moments that filled my heart with joy. Nature had a way of reminding me to embrace spontaneity, to chase the adventures that filled my spirit with life.', 7, 11, 2, '2024-10-04 17:22:11'),
+('The Thrill of Adventure Sports', 'Adrenaline coursed through my veins as I tackled various adventure sports. From rock climbing to paragliding, each experience pushed my limits and filled me with a sense of accomplishment. My journey began with rock climbing, scaling rugged cliffs that seemed insurmountable. The higher I climbed, the more I learned about trust—trust in my gear, trust in my abilities, and trust in my guide. The exhilaration of reaching the summit was unlike anything I had ever experienced. Next, I took to the skies with paragliding. As I soared above the landscape, the world below transformed into a patchwork of colors. The freedom I felt was liberating, the wind in my hair, and the breathtaking views fueling my spirit. I also tried white-water rafting, navigating through turbulent waters with a team of enthusiastic adventurers. Each twist and turn of the river tested our courage and teamwork. We laughed, screamed, and celebrated every splash and near-miss. Through these adventures, I discovered the power of pushing past my fears, embracing the thrill of life. Adventure sports taught me to savor every heartbeat, every rush of wind, and every moment of sheer joy, reminding me that life is meant to be lived fully.', 8, 12, 3, '2024-10-01 15:35:48'),
+('A Love Story', 'In the bustling city, I met someone who changed my life forever. Our love blossomed amidst the chaos, and together we created beautiful memories, proving that love conquers all. It all began on a rainy afternoon when I sought refuge in a cozy café. As I sipped my coffee, I noticed a stranger at the corner table, absorbed in a book. There was something magnetic about them, drawing me closer. We struck up a conversation, and before I knew it, hours had slipped away. Our connection was instant; we laughed, shared dreams, and discovered common passions. Over the following weeks, we explored the city together, from its hidden gems to popular landmarks. Each moment was filled with adventure, from spontaneous late-night ice cream runs to quiet strolls in the park. We learned to appreciate the little things—holding hands, stolen glances, and the warmth of a shared blanket on chilly nights. Our love story was not without challenges; we faced misunderstandings and obstacles that tested our bond. Yet, every struggle brought us closer, deepening our understanding of each other. In the end, it was love that triumphed, teaching us the importance of communication, patience, and forgiveness. Together, we crafted a beautiful narrative of two souls intertwined, proving that true love is worth fighting for.', 9, 25, 5, '2024-10-03 20:48:26'),
+('The Beauty of Solitude', 'Spending time alone allowed me to reflect on my life. In solitude, I found peace and clarity, realizing the importance of self-love and acceptance. I decided to take a weekend retreat to a small cabin in the woods, far away from the noise of everyday life. The moment I stepped into the tranquil surroundings, I felt a sense of calm wash over me. The chirping of birds and rustling leaves became my companions as I immersed myself in the beauty of nature. I spent my days hiking through the serene trails, surrounded by towering trees and vibrant wildflowers. Each step felt like a meditation, allowing my thoughts to flow freely. I journaled my reflections, pouring out my heart onto the pages. In this solitude, I confronted my fears and insecurities, learning to embrace them as part of who I am. I discovered the joy of cooking for myself, creating simple yet delicious meals with fresh ingredients. As night fell, I lit a fire outside, gazing at the stars twinkling above. It was in these moments of stillness that I truly found myself. I realized that solitude is not loneliness; it is a powerful tool for self-discovery and growth. This retreat became a journey of healing, reminding me that sometimes, the best company is your own.', 10, 14, 2, '2024-10-06 12:30:55'),
+('A Day in the Life of a Farmer', 'The sun rose early on the farm, and with it came the scent of fresh soil. I experienced the hard work and dedication that goes into farming, and it deepened my respect for those who feed the world. My day began before dawn, the roosters crowing as I joined the farmer in tending to the animals. We fed the chickens, collected eggs, and watched the cows graze in the dewy pastures. There’s a rhythm to farm life that I found soothing; every task was interconnected, a dance of nature and nurture. After breakfast, we headed to the fields. Planting seeds requires patience and precision, and I learned the importance of timing and care. The farmer explained the significance of each crop, sharing stories of the land and its history. As the sun climbed higher, we took a break under a shade tree, enjoying a simple meal of bread and cheese. We discussed the challenges of weather and market fluctuations, and I admired the resilience it takes to be a farmer. The day was filled with labor and laughter, as we worked together to bring life from the earth. As the sun set, painting the sky in vibrant colors, I felt a deep gratitude for the food on my plate and the hands that cultivated it. This day on the farm was a humbling experience, reminding me of the beauty in hard work and the importance of community.', 11, 9, 3, '2024-10-10 16:00:30'),
+('Memories of Childhood', 'Looking back at my childhood, I recall the carefree days filled with laughter and innocence. Those memories shaped who I am today, reminding me to cherish the little things. I remember endless summer days spent playing in the backyard, my friends and I inventing games that only children can dream up. The sound of our laughter echoed as we climbed trees and built forts, our imaginations running wild. I recall family road trips, the excitement of exploring new places, and the thrill of ice cream on hot days. Each moment was a treasure, a snapshot of pure joy. My parents would often tell stories of their own childhoods, and I found comfort in knowing that every generation experiences the same sense of wonder. As I grew older, those memories became a refuge, a reminder of simpler times when worries were few. I learned to appreciate the little things—spontaneous adventures, the smell of freshly baked cookies, and the warmth of a hug. Reflecting on my childhood has taught me the value of gratitude and the importance of nurturing our inner child. Those memories are not just fragments of the past; they are the foundation upon which I build my life.', 12, 6, 0, '2024-10-01 13:45:11'),
+('The Journey of Self-Discovery', 'Life is a journey of self-discovery. Each experience teaches us valuable lessons, guiding us towards our true selves. I embarked on this journey when I decided to take a solo trip across the country. With just a backpack and a heart full of curiosity, I set out to explore new places and meet new people. Each destination brought its own lessons, from the bustling streets of the city to the serene mountains. I learned to navigate unfamiliar environments, embracing the beauty of spontaneity. Along the way, I met incredible individuals who shared their stories, teaching me about different cultures and perspectives. I experienced moments of joy, but also challenges that forced me to confront my fears and insecurities. There were nights spent in solitude, reflecting on my journey and the person I was becoming. I discovered that self-discovery is not a destination but an ongoing process. It requires patience, courage, and an open heart. Through this journey, I found my passions, my values, and ultimately, my true self. I returned home transformed, carrying with me the lessons learned and a deeper understanding of who I am.', 13, 30, 1, '2024-10-07 09:25:45'),
+('A Tribute to Nature', 'Nature’s beauty is unparalleled. From majestic mountains to serene lakes, every aspect is a work of art. I feel grateful for the moments spent immersed in nature, and one unforgettable experience was a camping trip with friends. We chose a remote location surrounded by towering trees and a crystal-clear lake. Each morning, we woke to the sounds of birds chirping and the sun rising over the horizon, casting golden rays across the landscape. We spent our days hiking trails that wound through the wilderness, discovering hidden waterfalls and breathtaking vistas. The evenings were filled with laughter around the campfire, sharing stories and roasting marshmallows. One night, we took a moment to gaze at the stars, and I was overwhelmed by the vastness of the universe. Nature reminded us of our place in the grand scheme of things. I found solace in its tranquility, the peace it brought to my busy mind. This tribute to nature became a celebration of life and the beauty that surrounds us, inspiring me to cherish and protect our planet. Each moment spent in nature deepened my appreciation for its wonders and the importance of preserving it for future generations.', 14, 17, 4, '2024-10-08 20:15:32'),
+('A Historic Event', 'Reflecting on a historic event that shaped the world, I felt the weight of history pressing upon me. I attended a seminar on the civil rights movement, where speakers shared their firsthand experiences and the struggles they faced in the pursuit of equality. Listening to their stories was both humbling and inspiring. I learned about the courage it took to stand up against injustice, to fight for what is right even in the face of adversity. The tales of peaceful protests, sit-ins, and the unwavering spirit of those who believed in change resonated deeply with me. I was reminded of the power of community and the importance of unity in the fight for justice. The passion in the voices of those who lived through that era filled the room, and I felt a sense of responsibility to carry their legacy forward. As the seminar concluded, I realized that history is not just a collection of dates and events; it is a living, breathing narrative that continues to shape our lives today. This reflection on a historic event taught me the value of understanding our past and the need to strive for a future where equality and justice prevail for all.', 15, 13, 3, '2024-10-05 15:45:11'),
+('A Family Reunion', 'The warmth of family brings joy like no other. Our reunion was filled with laughter, stories, and a reminder of the importance of family bonds. As we gathered in a cozy cabin in the woods, I felt a sense of belonging wash over me. The aroma of home-cooked meals filled the air as we shared our favorite dishes, each one carrying a story of its own. The children ran around playing games, their laughter echoing through the trees. We reminisced about past reunions, recalling funny moments and cherished memories. One evening, we sat around a campfire, roasting marshmallows and sharing stories of our ancestors. I was struck by the rich tapestry of our family history and the resilience that had been passed down through generations. As the night sky filled with stars, I felt grateful for the connections we share and the love that binds us. This family reunion was a beautiful reminder of the importance of cherishing our loved ones and creating new memories together, reinforcing the idea that family is not just about blood; it’s about the bonds we create through love and shared experiences.', 16, 21, 1, '2024-10-02 18:00:22'),
+('The Impact of Technology', 'Technology has revolutionized our lives, but it’s essential to find a balance. While it offers convenience, we must not forget the value of human connection. I recently attended a tech conference where experts discussed the latest innovations shaping our world. From artificial intelligence to renewable energy solutions, the advancements are astounding. Yet, amidst the excitement, I couldn’t help but reflect on how technology impacts our relationships. I spoke with individuals who shared their experiences of feeling isolated despite being constantly connected online. We discussed the importance of unplugging and fostering genuine connections in our lives. As we navigated this digital age, it became clear that while technology can enhance our lives, it shouldn’t replace meaningful interactions. I returned home inspired to implement changes in my own life—setting aside tech-free times to engage with family and friends, rediscovering the joy of face-to-face conversations. This exploration of technology’s impact reminded me that balance is key; it’s about embracing innovation while cherishing the human connections that truly enrich our lives.', 17, 19, 2, '2024-10-03 12:15:07'),
+('Lessons from Travel', 'Travel teaches us lessons that go beyond the classroom. Each destination offers a unique perspective, enriching our understanding of the world. I embarked on a journey through Europe, exploring cities steeped in history and culture. Each place had its own story to tell, from the art of Florence to the bustling markets of Istanbul. I wandered through ancient ruins, stood in awe of majestic cathedrals, and savored local cuisines that danced on my palate. With every interaction with locals, I learned about their traditions and values, gaining insight into their way of life. The challenges of navigating new environments pushed me out of my comfort zone, teaching me resilience and adaptability. I often found myself lost but discovered that getting lost sometimes leads to the most memorable experiences. Travel has shown me the beauty of diversity and the shared humanity that connects us all. These lessons extend beyond the trip; they influence how I perceive the world and interact with others. Each journey leaves an imprint on my heart, reminding me that the world is vast, and there is so much to learn from each corner of it.', 18, 22, 4, '2024-10-08 10:30:15'),
+('An Unexpected Friendship', 'In an unexpected place, I found a friend. Our connection was instant, proving that friendship can blossom in the most unlikely circumstances. It happened during a solo backpacking trip. I had planned to explore the mountains alone, seeking solitude and reflection. One evening, while setting up my camp, I noticed a fellow traveler struggling with their tent. I offered to help, and as we worked together, we struck up a conversation. We quickly discovered shared interests, from music to travel. As the days passed, we explored the trails together, sharing stories and laughter along the way. Our friendship deepened with each passing hour spent in nature’s embrace. We supported each other through challenging hikes, celebrated breathtaking views, and found joy in simple moments. I realized that this unexpected friendship transformed my trip, turning solitude into companionship. As we parted ways at the end of the journey, we exchanged contact information, promising to stay in touch. This experience reminded me that friendship can arise in the most unexpected ways, enriching our lives in beautiful and surprising ways.', 19, 18, 0, '2024-10-04 14:05:26'),
+('The Magic of Music', 'Music has the power to heal and inspire. It speaks to the soul and transcends barriers, reminding us of our shared humanity. I attended a local concert featuring various artists from different backgrounds, showcasing their talents. The atmosphere was electric as the crowd gathered, anticipation buzzing in the air. Each performance transported me to a different world, evoking emotions ranging from joy to nostalgia. One artist sang songs of hope and resilience, sharing their story of overcoming adversity. Their music resonated deeply, touching hearts and uniting the audience in a shared experience. I felt a sense of connection with everyone present, united by the power of music. As the night unfolded, I danced and sang along, losing myself in the rhythm. I realized that music has an incredible ability to bring people together, to break down walls and foster understanding. This concert was a celebration of diversity and a reminder of the magic that music holds. It reaffirmed my belief in the importance of creativity and expression in our lives, inspiring me to embrace the music that moves me and to share it with others.', 20, 16, 3, '2024-10-09 19:45:12'),
+('Reflections on Life', 'As I reflect on my life, I realize the importance of gratitude. Each day is a gift, and I strive to embrace it fully, cherishing every moment. I decided to start a daily practice of reflection, taking time each evening to sit quietly and contemplate my day. I would jot down moments of joy, lessons learned, and things I am grateful for. This practice became a powerful tool for self-awareness. I learned to appreciate the small things, like a warm cup of coffee in the morning or a kind smile from a stranger. I found beauty in the mundane and discovered that happiness often lies in the simplest of moments. Additionally, I started to share my reflections with friends, creating a circle of positivity and support. We encouraged each other to focus on gratitude, to celebrate our victories, and to learn from our challenges. This journey of reflection has enriched my life, reminding me that each day holds the potential for growth and joy. I strive to carry this mindset forward, embracing the journey with an open heart and a grateful spirit.', 1, 23, 1, '2024-10-07 09:55:08'),
+('A Day in the City', 'The city is alive with energy, and exploring its streets reveals hidden gems. From quaint cafes to bustling markets, there’s always something new to discover. I spent a day wandering through the vibrant neighborhoods, camera in hand, capturing the essence of city life. My first stop was a local café known for its artisanal pastries. The aroma of freshly brewed coffee filled the air as I indulged in a warm croissant, savoring each bite. I struck up a conversation with the barista, who shared stories about the neighborhood and its history. Energized, I continued my adventure, visiting street art installations that told the stories of the community. Each mural was a reflection of the culture and creativity that thrived in this urban landscape. I stumbled upon a bustling market where vendors showcased their handmade crafts and fresh produce. The atmosphere was alive with laughter and chatter, and I found myself immersed in the vibrant community. As the sun began to set, painting the sky with hues of orange and pink, I reflected on the beauty of this day. The city had revealed itself to me in unexpected ways, reminding me of the magic that lies in exploration and connection.', 12, 11, 4, '2024-10-01 17:15:25'),
+('A Winter Wonderland', 'The first snow of winter transformed the world into a wonderland. I marveled at the beauty around me, feeling a childlike joy in the frosty air. The day began with a gentle snowfall, blanketing the ground in a soft layer of white. As I stepped outside, I was greeted by the crispness of the air and the sound of snow crunching beneath my feet. I decided to take a walk through the nearby park, where children built snowmen and families engaged in playful snowball fights. Laughter filled the air, and I couldn’t help but join in the fun, tossing snowballs and sharing joyful moments with strangers. As the day progressed, I wandered to a nearby hill where people were sledding down, their shouts of delight echoing through the winter wonderland. I took a turn on the sled myself, feeling the rush of adrenaline and freedom as I flew down the slope. Later, I warmed up with a cup of hot cocoa at a local café, watching the snow continue to fall outside. This day in the winter wonderland reminded me of the simple joys of life, the beauty of nature, and the warmth of community. I returned home with a heart full of gratitude, cherishing the magic of the season.', 2, 27, 2, '2024-10-05 14:25:45'),
+('The Power of Kindness', 'Acts of kindness can change the world. A simple gesture can brighten someone’s day, and I strive to spread kindness wherever I go. One afternoon, I decided to volunteer at a local shelter. As I arrived, I was greeted with smiles and warm welcomes from the staff and residents. I helped serve meals and engage with those in need, listening to their stories and sharing laughter. One woman shared her journey, expressing gratitude for the support she received. Her resilience inspired me, and I realized the impact we can have on others’ lives through kindness. After my shift, I felt fulfilled, knowing that my small contributions made a difference. I left the shelter with a heart full of gratitude and a desire to continue spreading kindness. I started a challenge among friends to perform one act of kindness each day. We shared our experiences, creating a ripple effect of positivity in our community. This journey of kindness has taught me that we all have the power to uplift others, to create a world filled with compassion and love. I believe that through small acts, we can inspire change and foster a sense of belonging for everyone.', 3, 24, 0, '2024-10-06 13:00:12'),
+('The Journey of Self-Discovery', 'Life is a journey of self-discovery, filled with lessons and growth. I embarked on a path to understand myself better, exploring my passions and values. It began with a personal retreat where I disconnected from the noise of daily life. I spent time journaling, reflecting on my experiences, and asking myself profound questions. What brings me joy? What are my core values? Through this introspection, I unearthed hidden passions I had neglected. I rediscovered my love for painting, spending hours creating and expressing my thoughts on canvas. Each brushstroke became a meditation, allowing me to connect with my innermost self. I also sought new experiences, from hiking in nature to joining a local dance class. Each adventure taught me something new about myself, pushing me out of my comfort zone. I met incredible people along the way, each contributing to my journey of self-discovery. This process taught me that self-discovery is not a destination but a continuous journey, and every experience shapes who I am. As I embrace this journey, I remain open to learning and growing, grateful for the opportunity to explore the depths of my being.', 4, 20, 1, '2024-10-02 15:45:36');
 
--- Insert Sample Users with Avatars
-INSERT INTO users (username, email, hash, profile_picture_url) VALUES
-('user1', 'user1@example.com', 'hashed_password1', 'avatar1.png'),
-('user2', 'user2@example.com', 'hashed_password2', 'avatar2.png'),
-('user3', 'user3@example.com', 'hashed_password3', 'avatar3.png'),
-('user4', 'user4@example.com', 'hashed_password4', 'avatar4.png'),
-('user5', 'user5@example.com', 'hashed_password5', 'avatar5.png'),
-('user6', 'user6@example.com', 'hashed_password6', 'avatar6.png'),
-('user7', 'user7@example.com', 'hashed_password7', 'avatar7.png'),
-('user8', 'user8@example.com', 'hashed_password8', 'avatar8.png'),
-('user9', 'user9@example.com', 'hashed_password9', 'avatar9.png'),
-('user10', 'user10@example.com', 'hashed_password10', 'avatar10.png');
 
--- Insert Sample Stories
-INSERT INTO stories (user_id, title, text) VALUES 
-(1, 'A dark time in my life', 'I felt completely lost and overwhelmed. Every day was a struggle, and I didn’t see any light at the end of the tunnel. I often thought about giving up, but I knew I had to keep going for my family.'),
-(2, 'Thoughts of ending it all', 'I’ve been in a dark place for so long that I can’t remember what happiness feels like. There were days when I thought about ending it all, feeling like I was a burden to everyone around me.'),
-(3, 'The weight of despair', 'Living with depression is like carrying a heavy weight that never goes away. I try to smile and pretend everything is fine, but inside I am screaming for help.'),
-(4, 'Hope in the darkness', 'Despite everything, I found a glimmer of hope. I began talking to a therapist and found that sharing my thoughts alleviated some of the burden. It’s a long journey, but I’m learning to take it one day at a time.'),
-(5, 'Finding strength', 'I didn’t think I had any strength left, but I discovered that sharing my story helped others as well. Together, we are fighting our battles, and it gives me the courage to face each day.'),
-(6, 'Life feels unbearable', 'I often wonder if life is worth living. Some days, the pain feels like too much to bear. But then I see a kind word from a friend or a stranger, and it reminds me that there’s still beauty in the world.'),
-(7, 'Fighting the demons', 'Every night, I fight the demons in my mind that tell me I am worthless. I’ve learned that I am not alone in this battle, and there are people who care about me.'),
-(8, 'The struggle to stay alive', 'When the thoughts of suicide creep in, I remind myself of the people who love me. I try to hold on to the moments of joy, however small they may be.'),
-(9, 'A glimpse of hope', 'During my darkest times, I found solace in the stories of others who have struggled. Their journeys inspired me to seek help and keep pushing forward.'),
-(10, 'Turning pain into purpose', 'My experiences have led me to advocate for mental health awareness. Sharing my story has become my purpose, and I hope to help others who are in pain.'),
-(11, 'Living with anxiety', 'Anxiety consumes me daily, but I am learning to manage it one breath at a time. It’s a constant battle, but I refuse to let it control my life.'),
-(12, 'The loss of a loved one', 'Losing someone I loved deeply shattered my world. I often find myself spiraling into grief, but I know they would want me to keep living.'),
-(13, 'Breaking the cycle', 'I grew up in a toxic environment, and it took years for me to break free. It’s still a struggle, but I am committed to my healing process.'),
-(14, 'Hope after despair', 'I hit rock bottom last year, but I discovered that there’s hope even in the darkest moments. Reaching out to others has saved me.'),
-(15, 'The fight for normalcy', 'Every day feels like a fight. I strive for a sense of normalcy, but it often feels out of reach. I hold on to small victories.'),
-(16, 'Finding light in dark places', 'I learned to find light in the darkest places. Even on my worst days, I try to find one thing to be grateful for.'),
-(17, 'Struggling with self-worth', 'I often struggle with feelings of unworthiness. I’m learning that I am enough, just as I am.'),
-(18, 'Overcoming fear', 'Fear has held me back for so long. I’m starting to take small steps to confront it head-on.'),
-(19, 'The journey of healing', 'Healing is not linear. There are ups and downs, but I keep pushing forward. I remind myself that progress is progress.'),
-(20, 'Creating a support network', 'I reached out to others and created a support network. It has made all the difference in my healing journey.'),
-(21, 'The silence of depression', 'Sometimes, the silence of depression is the loudest. I’ve learned to break that silence by speaking out.'),
-(22, 'A message to others', 'If you are struggling, please know that it’s okay to ask for help. You are not alone in this fight.'),
-(23, 'Rediscovering joy', 'I’m slowly rediscovering joy in life’s little moments. It’s a beautiful journey, even with its challenges.'),
-(24, 'Support from friends', 'My friends have been my lifeline. Their support has helped me navigate through the darkest times.'),
-(25, 'From pain to passion', 'I turned my pain into passion by writing. It has been a therapeutic outlet for me.'),
-(26, 'Embracing vulnerability', 'I’ve learned that being vulnerable is a strength, not a weakness. It connects us to others.'),
-(27, 'Life after trauma', 'Life after trauma is challenging, but I’m determined to rebuild. Each day is a new opportunity.'),
-(28, 'Finding my voice', 'I finally found my voice after years of silence. I will not be silenced again.'),
-(29, 'The power of stories', 'Sharing stories has the power to heal. I hope my story resonates with someone.'),
-(30, 'A journey to self-acceptance', 'Accepting myself has been the hardest journey, but it’s also the most rewarding. I’m learning to love who I am.');
+-- Insert Comments
+INSERT INTO comments (text, user_id, story_id, datetime) VALUES
+('This story resonates with me so much! Thank you for sharing your experience.', 23, 4, '2024-10-10 09:45:00'),
+('I love the theme of gratitude in this story. It’s so important!', 20, 7, '2024-10-10 10:00:00'),
+('Such an inspiring read! I appreciate the insights you shared.', 24, 8, '2024-10-10 10:15:00'),
+('Beautifully written! Your reflections are touching.', 25, 12, '2024-10-10 10:30:00'),
+('The power of kindness truly makes a difference. Thank you for sharing!', 18, 18, '2024-10-10 10:45:00'),
+('Your journey of self-discovery is inspiring. Keep exploring!', 22, 16, '2024-10-10 11:00:00'),
+('I admire how you embraced the magic of music. It truly connects us all.', 19, 15, '2024-10-10 11:15:00'),
+('Your story about the winter wonderland brought back so many memories! Thank you!', 21, 14, '2024-10-10 11:30:00'),
+('I love how you captured the essence of city life in your story!', 17, 19, '2024-10-10 11:45:00'),
+('This family reunion sounds so heartwarming! I love hearing about family bonds.', 16, 6, '2024-10-10 12:00:00'),
+('Incredible storytelling! I felt as though I was right there with you.', 14, 1, '2024-10-11 09:00:00'),
+('This really touched my heart. Thank you for sharing your journey.', 15, 1, '2024-10-11 09:05:00'),
+('Your words are powerful and uplifting. I’m inspired!', 16, 1, '2024-10-11 09:10:00'),
+('The imagery in your story is captivating. I could visualize everything.', 17, 2, '2024-10-11 09:15:00'),
+('A wonderful portrayal of love and life. I enjoyed every bit of it.', 18, 2, '2024-10-11 09:20:00'),
+('Thank you for reminding us to appreciate the little things in life.', 19, 3, '2024-10-11 09:25:00'),
+('Your adventures sound thrilling! I wish I could join you next time.', 20, 3, '2024-10-11 09:30:00'),
+('I felt the emotions in your words. It’s a beautiful reflection on life.', 21, 5, '2024-10-11 09:35:00'),
+('The secrets of nature you shared were profound. Thank you for inspiring us.', 22, 5, '2024-10-11 09:40:00'),
+('Your culinary journey made me hungry! I’m inspired to try new foods.', 23, 3, '2024-10-11 09:45:00'),
+('What an amazing experience! I can’t wait to read more from you.', 24, 6, '2024-10-11 09:50:00'),
+('Your thoughts on solitude really resonated with me. Thank you for sharing.', 25, 6, '2024-10-11 09:55:00'),
+('I appreciate your honesty in sharing this story. It was refreshing!', 14, 7, '2024-10-11 10:00:00'),
+('The way you express your thoughts is remarkable. I look forward to your next piece.', 15, 7, '2024-10-11 10:05:00'),
+('Your journey is inspiring. Keep sharing your stories with the world!', 16, 8, '2024-10-11 10:10:00'),
+('A delightful read! I enjoyed every moment of it.', 17, 8, '2024-10-11 10:15:00'),
+('Your story made my day! Thank you for such positive vibes.', 18, 8, '2024-10-11 10:20:00'),
+('What a beautiful message! I appreciate you sharing this.', 19, 9, '2024-10-11 10:25:00'),
+('I love how you conveyed such deep emotions in your story.', 20, 9, '2024-10-11 10:30:00'),
+('Your insights into life are truly remarkable. Thank you for sharing!', 21, 10, '2024-10-11 10:35:00'),
+('I can relate so much to your experiences. Keep writing!', 22, 10, '2024-10-11 10:40:00'),
+('The way you capture moments in time is exquisite.', 23, 11, '2024-10-11 10:45:00'),
+('Thank you for this beautiful reflection! It made me think.', 24, 11, '2024-10-11 10:50:00'),
+('I appreciate your take on solitude. It’s so relatable.', 25, 12, '2024-10-11 10:55:00'),
+('Your experiences make for captivating storytelling. I look forward to reading more!', 14, 13, '2024-10-11 11:00:00'),
+('Your story is a reminder to cherish our experiences. Thank you!', 15, 13, '2024-10-11 11:05:00'),
+('This was a fantastic read! I’m looking forward to your next adventure.', 16, 14, '2024-10-11 11:10:00'),
+('Your love for nature shines through in your writing. It’s inspiring!', 17, 14, '2024-10-11 11:15:00'),
+('Thank you for sharing such a personal experience. It means a lot!', 18, 15, '2024-10-11 11:20:00'),
+('Your reflections on music are beautiful. It truly connects us all!', 19, 15, '2024-10-11 11:25:00'),
+('Your thoughts on kindness are needed in the world today. Thank you!', 20, 16, '2024-10-11 11:30:00'),
+('I admire how you embrace adventure in your stories! Keep it up.', 21, 17, '2024-10-11 11:35:00'),
+('The way you describe experiences is captivating. I can’t wait for more!', 22, 17, '2024-10-11 11:40:00'),
+('Your storytelling style is unique and refreshing. Keep sharing!', 23, 18, '2024-10-11 11:45:00'),
+('What an emotional journey! Thank you for sharing this.', 24, 19, '2024-10-11 11:50:00'),
+('Your experiences remind us all to stay grounded. Thank you!', 25, 20, '2024-10-11 11:55:00'),
+('I loved how you conveyed the beauty of solitude in your story.', 14, 21, '2024-10-11 12:00:00'),
+('Your journey through the mountains sounds incredible! I hope to experience it myself one day.', 15, 22, '2024-10-11 12:05:00'),
+('Thank you for sharing such inspiring thoughts! I appreciate it.', 16, 23, '2024-10-11 12:10:00'),
+('Your thoughts on technology are thought-provoking. It’s so relevant today.', 17, 24, '2024-10-11 12:15:00'),
+('This family reunion sounds amazing! I love hearing about family connections.', 18, 25, '2024-10-11 12:20:00');
 
--- Insert Sample Comments
-INSERT INTO comments (user_id, story_id, text) VALUES
-(1, 1, 'Thank you for sharing your story. It resonates with me.'),
-(2, 2, 'I understand what you are going through. You are not alone.'),
-(3, 1, 'Your strength is inspiring. Keep fighting!'),
-(4, 3, 'I have felt the same way. Let’s talk.'),
-(5, 4, 'Hope is a powerful thing. Thank you for this.'),
-(6, 5, 'Your words are powerful. I admire your courage.'),
-(7, 6, 'You are not alone in this fight. Keep going.'),
-(8, 7, 'Thank you for your honesty. It helps others feel less isolated.'),
-(9, 8, 'Every day is a new chance. I believe in you.'),
-(10, 9, 'Your story touched my heart. Thank you for sharing.'),
-(11, 10, 'You’re turning your pain into purpose. That’s amazing.'),
-(12, 1, 'It’s important to keep fighting. You’re stronger than you think.'),
-(13, 2, 'I can relate to your struggle. You are brave for sharing.'),
-(14, 3, 'Your journey is inspiring. Thank you for opening up.'),
-(15, 4, 'You have a voice that matters. Keep sharing your story.'),
-(16, 5, 'This gives me hope. Thank you for being vulnerable.'),
-(17, 6, 'Your resilience is admirable. Keep pushing forward.'),
-(18, 7, 'You are not alone. We are all in this together.'),
-(19, 8, 'Every little step counts. You are doing great.'),
-(20, 9, 'Thank you for being a light in the darkness.'),
-(21, 10, 'Your advocacy for mental health is so important.'),
-(22, 11, 'Thank you for sharing your journey with us.'),
-(23, 12, 'Your courage to speak out is inspiring.'),
-(24, 13, 'I’ve been through similar experiences. Thank you for sharing.'),
-(25, 14, 'You are a warrior. Your story will inspire many.'),
-(26, 15, 'Life is a journey. Thank you for reminding us of that.'),
-(27, 16, 'You are deserving of happiness. Keep fighting for it.'),
-(28, 17, 'Your story will resonate with others. Thank you.'),
-(29, 18, 'It takes strength to face fears. Keep going!'),
-(30, 19, 'You are making progress, and that’s what matters.');
 
--- Additional Comments for More Interaction
-INSERT INTO comments (user_id, story_id, text) VALUES
-(1, 20, 'Building a support network is so crucial. Great job!'),
-(2, 21, 'Breaking the silence can be powerful. Thank you for sharing.'),
-(3, 22, 'You are a beacon of hope for others. Keep shining!'),
-(4, 23, 'Rediscovering joy is a beautiful journey. I’m with you!'),
-(5, 24, 'Friends are such a blessing in difficult times.'),
-(6, 25, 'Your passion is inspiring. Keep using your voice!'),
-(7, 26, 'Vulnerability connects us all. Thank you for your strength.'),
-(8, 27, 'Rebuilding after trauma is hard. I admire your courage.'),
-(9, 28, 'Finding your voice is powerful. Keep it loud!'),
-(10, 29, 'Stories indeed have the power to heal. Thank you!'),
-(11, 30, 'Self-acceptance is key. You’re on the right path!'),
-(12, 1, 'Your story is inspiring. Thank you for sharing it!'),
-(13, 2, 'You are not alone in this battle. I am here for you!'),
-(14, 3, 'Your words bring comfort. Keep writing and sharing!'),
-(15, 4, 'It’s okay to ask for help. We are in this together.');
+
+
 --for exc the script follow this
---sqlite3 hate.db
+--sqlite3 instance/hate.db
 --.read scriptdemo.sql
+-- or do this
+--  sqlite3 instance/hate.db < scriptdemo.sql
+

@@ -15,32 +15,66 @@
     {% for story in stories %}
         <div class="post cit_395664">
             <div class="user-info">
-                <img src="{{ url_for('static', filename=story.author.profile_picture_url) }}" alt="User Avatar">
+                {% if story.author.profile_picture_url %}
+                    <img src="{{ url_for('static', filename=story.author.profile_picture_url) }}" alt="User Avatar" class="img-thumbnail">
+                {% else %}
+                    <img src="{{ url_for('static', filename='default_avatar.png') }}" alt="User Avatar" class="img-thumbnail">
+                {% endif %}
                 <span>{{ story.author.username }}</span>
             </div>
             <span class="number"><a href="/post/{{ story.id }}">#{{ story.id }}</a></span>
+            <span class="title">{{ story.title }}</span>
             <span class="time">{{ story.datetime }}</span>
             <span class="post_id">
                 [
                 <span class="votes">
-                    <i class="bi bi-hand-thumbs-up like-button" data-id="{{ story.id }}" data-type="story"></i>
+                    <i class="bi bi-hand-thumbs-up like-button" data-id="{{ story.id }}" data-type="story" aria-label="Like"></i>
                 </span>
-                <span class="raiting" id="like-count-{{ story.id }}">{{ story.likes }}</span> <!-- Compteur de likes -->
+                <span class="rating" id="like-count-{{ story.id }}">{{ story.likes }}</span>
                 <span class="votes">
-                    <i class="bi bi-hand-thumbs-down dislike-button" data-id="{{ story.id }}" data-type="story"></i>
+                    <i class="bi bi-hand-thumbs-down dislike-button" data-id="{{ story.id }}" data-type="story" aria-label="Dislike"></i>
                 </span>
+                <span class="rating" id="dislike-count-{{ story.id }}">{{ story.dislikes }}</span>
                 ]
             </span>
-            <div class="content">{{ story.text }}</div>
-            <span><a href="/post/{{ story.id }}">Comments</a> ({{ story.comments|length }})</span>
+            <div class="content">{{ story.content }}</div>
+            <span><a href="#" class="toggle-comments" data-id="{{ story.id }}">Comments</a> ({{ story.comments|length }})</span>
+
+            <div class="comments" id="comments-{{ story.id }}" style="display:none;">
+{% for comment in story.comments %}
+    <div class="comment mt-3">
+        <div class="user-info">
+            {% if comment.user.profile_picture_url %}
+                <img src="{{ url_for('static', filename=comment.user.profile_picture_url) }}" alt="User Avatar" class="img-thumbnail">
+            {% else %}
+                <img src="{{ url_for('static', filename='default_avatar.png') }}" alt="User Avatar" class="img-thumbnail">
+            {% endif %}
+            <span>{{ comment.user.username }}</span>
+        </div>
+        <div class="content">{{ comment.text }}</div>
+        <span class="post_id">
+            [
+            <span class="votes">
+                <i class="bi bi-hand-thumbs-up like-button" data-id="{{ comment.id }}" data-type="comment" aria-label="Like"></i>
+            </span>
+            <span class="rating" id="like-count-{{ comment.id }}">{{ comment.likes }}</span>
+            <span class="votes">
+                <i class="bi bi-hand-thumbs-down dislike-button" data-id="{{ comment.id }}" data-type="comment" aria-label="Dislike"></i>
+            </span>
+            <span class="rating" id="dislike-count-{{ comment.id }}">{{ comment.dislikes }}</span>
+            ]
+        </span>
+    </div>
+{% endfor %}
+            </div>
         </div>
     {% endfor %}
 
     {% if from_where == "random" %}
-        <a href="/random" class="btn btn-dark btn-lg btn-block" style="text-decoration:none; color:white">Other stories</a>
+        <a href="/random" class="btn btn-dark btn-lg btn-block text-white text-decoration-none">Other stories</a>
     {% elif pages_count > 1 %}
-        <div style="margin-left:457px">
-            <nav aria-label="...">
+        <div class="d-flex justify-content-center mt-4">
+            <nav aria-label="Page navigation">
                 <ul class="pagination">
                     <li class="page-item {% if current_page == 1 %}disabled{% endif %}">
                         <a class="page-link" href="{% if current_page > 1 %}/new/page/{{ current_page - 1 }}{% else %}#{% endif %}" tabindex="-1">&laquo;</a>
@@ -60,32 +94,65 @@
 </div>
 
 <script>
-    // Fonction pour aimer une histoire
-    $('.like-button').on('click', function() {
-        let postId = $(this).data('id');
-        let type = $(this).data('type');
-        $.post(`/like/${postId}/${type}`, function(data) {
-            if (data.success) {
-                // Mettez à jour le compteur de likes
-                let countSpan = $(`#like-count-${postId}`);
-                let currentLikes = parseInt(countSpan.text());
-                countSpan.text(currentLikes + 1);
-            }
-        });
+$(document).on('click', '.like-button', function() {
+    let postId = $(this).data('id');
+    let fromWhere = $(this).data('type');
+    $.post(`/like/${postId}/${fromWhere}`, function(data) {
+        if (data.success) {
+            $(`#like-count-${postId}`).text(data.likes);
+            $(`#dislike-count-${postId}`).text(data.dislikes);
+        } else {
+            console.error(data.message);
+        }
     });
+});
 
-    // Fonction pour ne pas aimer une histoire
-    $('.dislike-button').on('click', function() {
-        let postId = $(this).data('id');
-        let type = $(this).data('type');
-        $.post(`/dislike/${postId}/${type}`, function(data) {
-            if (data.success) {
-                // Mettez à jour le compteur de likes
-                let countSpan = $(`#like-count-${postId}`);
-                let currentLikes = parseInt(countSpan.text());
-                countSpan.text(currentLikes - 1);
-            }
-        });
+$(document).on('click', '.dislike-button', function() {
+    let postId = $(this).data('id');
+    let fromWhere = $(this).data('type');
+    $.post(`/dislike/${postId}/${fromWhere}`, function(data) {
+        if (data.success) {
+            $(`#like-count-${postId}`).text(data.likes);
+            $(`#dislike-count-${postId}`).text(data.dislikes);
+        } else {
+            console.error(data.message);
+        }
     });
+});
+
+$(document).on('click', '.like-button[data-type="comment"]', function() {
+    let commentId = $(this).data('id');
+    $.post(`/com_like/${commentId}`, function(data) {
+        if (data.success) {
+            $(`#like-count-${commentId}`).text(data.likes);
+            $(`#dislike-count-${commentId}`).text(data.dislikes);
+        } else {
+            console.error(data.message);
+        }
+    });
+});
+
+$(document).on('click', '.dislike-button[data-type="comment"]', function() {
+    let commentId = $(this).data('id');
+    $.post(`/com_dislike/${commentId}`, function(data) {
+        if (data.success) {
+            $(`#like-count-${commentId}`).text(data.likes);
+            $(`#dislike-count-${commentId}`).text(data.dislikes);
+        } else {
+            console.error(data.message);
+        }
+    });
+});
+
+$(document).on('click', '.number a', function(e) {
+    e.preventDefault();
+    window.location.href = $(this).attr('href');
+});
+
+$(document).on('click', '.toggle-comments', function(e) {
+    e.preventDefault();
+    let storyId = $(this).data('id');
+    $(`#comments-${storyId}`).toggle();
+});
 </script>
 {% endblock %}

@@ -5,9 +5,10 @@ def filter_bad_words(text):
     return profanity.censor(text)
 
 def get_coms_count(story):
-    # Utilisez story_id pour filtrer les commentaires
-    coms_count = Comment.query.filter_by(story_id=story.id).count()
-    return coms_count  # Retourner le nombre de commentaires
+    comments = Comment.query.filter_by(story_id=story.id).all()
+    story.comments = comments  # Update the story object with the comments
+    story.comments_count = len(comments)  # Optionally, store the count
+
 
 def get_pages_count(stories_count):
     if stories_count > 10:

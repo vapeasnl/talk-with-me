@@ -18,53 +18,51 @@
         {% endif %}
       </div>
       <div class="form-group">
-        <label for="exampleInputEmail1">Username</label>
+        <label for="exampleInputUsername">Username</label>
         {% if error == None %}
-            <input name="username" type="text" class="form-control" placeholder="Enter username">
-            <small id="emailHelp" class="form-text text-muted">Other users will see this name next to your comments.</small>
+            <input name="username" type="text" class="form-control" id="exampleInputUsername" placeholder="Enter username">
+            <small class="form-text text-muted">Other users will see this name next to your comments.</small>
         {% elif error == 2 %}
-            <input name="username" type="text" class="form-control is-invalid" placeholder="Enter username">
+            <input name="username" type="text" class="form-control is-invalid" id="exampleInputUsername" placeholder="Enter username">
             <div class="invalid-feedback">{{ text }}</div>
         {% else %}
-            <input name="username" type="text" class="form-control" placeholder="Enter username" value="{{ username }}">
-            <small id="emailHelp" class="form-text text-muted">Other users will see this name next to your comments.</small>
+            <input name="username" type="text" class="form-control" id="exampleInputUsername" placeholder="Enter username" value="{{ username }}">
+            <small class="form-text text-muted">Other users will see this name next to your comments.</small>
         {% endif %}
       </div>
       <div class="form-group">
         <label for="exampleInputPassword1">Password</label>
         {% if error == 3 %}
-            <input name="password" type="password" class="form-control is-invalid" placeholder="Password">
+            <input name="password" type="password" class="form-control is-invalid" id="exampleInputPassword1" placeholder="Password">
             <div class="invalid-feedback">{{ text }}</div>
         {% else %}
             <input name="password" type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
-            <small id="emailHelp" class="form-text text-muted">We recommend you to make the password long and containing both digits and letters in different registers.</small>
+            <small class="form-text text-muted">We recommend you to make the password long and containing both digits and letters in different registers.</small>
         {% endif %}
       </div>
       <div class="form-group">
-        <label for="exampleInputPassword1">Password (again)</label>
+        <label for="exampleInputPassword2">Password (again)</label>
         {% if error == 4 %}
-            <input name="confirmation" type="password" class="form-control is-invalid" placeholder="Password (again)">
+            <input name="confirmation" type="password" class="form-control is-invalid" id="exampleInputPassword2" placeholder="Password (again)">
             <div class="invalid-feedback">{{ text }}</div>
         {% else %}
-            <input name="confirmation" type="password" class="form-control" id="exampleInputPassword1" placeholder="Password (again)">
-            <small id="emailHelp" class="form-text text-muted">Confirm your password.</small>
+            <input name="confirmation" type="password" class="form-control" id="exampleInputPassword2" placeholder="Password (again)">
+            <small class="form-text text-muted">Confirm your password.</small>
         {% endif %}
       </div>
-        
-<div class="form-group">
-    <label for="avatar">Choose an avatar</label>
-    <div>
-      {% for i in range(1, 11) %}
-        <input type="radio" id="avatar{{ i }}" name="avatar" value="avatar{{ i }}.png"> <!-- Cacher l'input radio -->
-        <label for="avatar{{ i }}" style="cursor: pointer; margin-right: 10px;">
-            <img src="{{ url_for('static', filename='avatar' ~ i ~ '.png') }}" alt="Avatar {{ i }}" style="width: 40px; height: 40px;">
-        </label>
-      {% endfor %}
-    </div>
-</div>
 
+      <div class="form-group">
+        <label for="avatar">Choose an avatar</label>
+        <div>
+          {% for i in range(1, 11) %}
+            <input type="radio" id="avatar{{ i }}" name="avatar" value="avatar{{ i }}.png">
+            <label for="avatar{{ i }}" class="avatar-label">
+                <img src="{{ url_for('static', filename='avatar' ~ i ~ '.png') }}" alt="Avatar {{ i }}" class="avatar-img">
+            </label>
+          {% endfor %}
+        </div>
+      </div>
 
-<button type="submit" class="btn btn-primary">Register</button>
-
+      <button type="submit" class="btn btn-primary">Register</button>
     </form>
 {% endblock %}

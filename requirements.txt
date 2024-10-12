@@ -4,4 +4,4 @@ Flask-WTF
 Jinja2
 better_profanity
 Flask-Session
-
+flask-marshmallow
