@@ -5,3 +5,4 @@ Jinja2
 better_profanity
 Flask-Session
 flask-marshmallow
+flask_login
