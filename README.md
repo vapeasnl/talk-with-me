@@ -15,8 +15,6 @@
 ## Overview
 **Talk With Me** is a web-based application that provides users with a platform to share their stories, experiences, and feelings anonymously. It is designed to be a space for people to express themselves freely and find comfort through storytelling.
 
-The app was inspired by a personal experience of our developer, Salim Abdessamad, who went through a difficult period of financial hardship and depression. During that time, the need to talk and share his feelings led to the idea of creating this app.
-
 ## Technologies Used
 - **Flask**: Web framework for backend logic.
 - **SQLAlchemy**: ORM for handling database operations.
