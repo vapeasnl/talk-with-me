@@ -17,7 +17,7 @@ class User(db.Model):
     stories = db.relationship('Story', backref='author', lazy=True)
     comments = db.relationship('Comment', backref='author', lazy=True)
     actions = db.relationship('UserAction', backref='user', lazy=True)
-# Modèle Story
+
 # Modèle Story
 class Story(db.Model):
     __tablename__ = 'stories'
@@ -29,7 +29,7 @@ class Story(db.Model):
     likes = db.Column(db.Integer, default=0)  # Add likes attribute
     dislikes = db.Column(db.Integer, default=0)  # Add dislikes attribute
 
-    # Relation pour les actions des utilisateurs (like, dislike)
+    # Relations
     story_actions = db.relationship('UserAction', backref='acted_on_story', lazy=True, cascade="all, delete-orphan")
 
 # Modèle Comment
@@ -45,12 +45,10 @@ class Comment(db.Model):
 
     # Add the relationship to User
     user = db.relationship('User', backref='comments_by_user')
-
-    # Renommage du backref pour éviter le conflit
     comment_actions = db.relationship('UserAction', backref='related_comment_action', lazy=True, cascade="all, delete-orphan")
 
 
-# Modèle UserAction (like/dislike sur des histoires et des commentaires)
+# Modèle UserAction
 class UserAction(db.Model):
     __tablename__ = 'user_action'
     id = db.Column(db.Integer, primary_key=True)
@@ -60,6 +58,6 @@ class UserAction(db.Model):
     liked = db.Column(db.Boolean, default=False)
     disliked = db.Column(db.Boolean, default=False)
 
-    # Renommage du backref pour éviter le conflit
+    # Relations
     comment = db.relationship('Comment', backref='user_actions_on_comment', overlaps="comment_actions")
     story = db.relationship('Story', backref='user_actions_on_story')
