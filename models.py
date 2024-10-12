@@ -1,10 +1,7 @@
 from db import db
 from datetime import datetime
 
-# Modèle User
-# models.py
-
-# Add the profile_picture_url field to the User model
+# Model User
 class User(db.Model):
     __tablename__ = 'users'
     id = db.Column(db.Integer, primary_key=True)
@@ -18,7 +15,7 @@ class User(db.Model):
     comments = db.relationship('Comment', backref='author', lazy=True)
     actions = db.relationship('UserAction', backref='user', lazy=True)
 
-# Modèle Story
+# Model Story
 class Story(db.Model):
     __tablename__ = 'stories'
     id = db.Column(db.Integer, primary_key=True)
@@ -32,7 +29,7 @@ class Story(db.Model):
     # Relations
     story_actions = db.relationship('UserAction', backref='acted_on_story', lazy=True, cascade="all, delete-orphan")
 
-# Modèle Comment
+# Model Comment
 class Comment(db.Model):
     __tablename__ = 'comments'
     id = db.Column(db.Integer, primary_key=True)
@@ -48,7 +45,7 @@ class Comment(db.Model):
     comment_actions = db.relationship('UserAction', backref='related_comment_action', lazy=True, cascade="all, delete-orphan")
 
 
-# Modèle UserAction
+# Model UserAction
 class UserAction(db.Model):
     __tablename__ = 'user_action'
     id = db.Column(db.Integer, primary_key=True)
