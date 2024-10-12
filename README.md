@@ -93,7 +93,7 @@ Ensure you have the following installed on your system:
 
 
 ## Future Plans
-- ** Moderation**: Tools to moderate and filter inappropriate content.
+- **Moderation:** Tools to moderate and filter inappropriate content.
 
 ## Contributors
 - **Salim Abdessamad** - Developer
