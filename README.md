@@ -8,7 +8,7 @@
   - [Steps to Set Up](#steps-to-set-up)
 - [How to Use the App](#how-to-use-the-app)
 - [Features](#features)
-- [Screenshots](#screenshots)
+- [Demo](#demo)
 - [Future Plans](#future-plans)
 - [Contributors](#contributors)
 
@@ -89,8 +89,9 @@ Ensure you have the following installed on your system:
 
 ---
 
-## Screenshots
+## Demo
 
+[https://www.youtube.com/watch?v=C1nDL7GRhUY](https://www.youtube.com/watch?v=C1nDL7GRhUY)
 
 ## Future Plans
 - **Moderation:** Tools to moderate and filter inappropriate content.
