@@ -95,6 +95,6 @@ Ensure you have the following installed on your system:
 - **Moderation:** Tools to moderate and filter inappropriate content.
 
 ## Contributors
-- **Salim Abdessamad** - Developer
-- **Ahmed Sahbeddine** - Developer
+- **Salim Abdessamad**
+- **Ahmed Sahbeddine**
 
