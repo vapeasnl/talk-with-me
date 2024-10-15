@@ -70,49 +70,6 @@ def login():
 
     return render_template("login.html", error=None)
     
-# Profile route
-@app.route('/profile', methods=['GET', 'POST'])
-def profile():
-    if not current_user.is_authenticated:
-        flash("You need to log in to access the profile page.", "error")
-        return redirect(url_for('login'))
-
-    user = current_user
-    app.logger.debug(f"Current User: {user}")
-    app.logger.debug(f"User Authenticated: {current_user.is_authenticated}")
-    app.logger.debug(f"Session User ID: {session.get('user_id')}")
-
-    if request.method == 'POST':
-        if 'update_profile' in request.form:
-            username = request.form.get('username')
-            email = request.form.get('email')
-            new_password = request.form.get('new_password')
-            profile_picture = request.files.get('profile_picture')
-
-            if username:
-                user.username = username
-            if email:
-                user.email = email
-            if new_password:
-                user.hash = generate_password_hash(new_password)
-            if profile_picture:
-                profile_picture.save(os.path.join(app.static_folder, profile_picture.filename))
-                user.profile_picture_url = url_for('static', filename=profile_picture.filename)
-
-            db.session.commit()
-            flash("Profile updated successfully", "success")
-        elif 'delete_story' in request.form:
-            story_id = request.form.get('story_id')
-            Story.query.filter_by(id=story_id, user_id=user.id).delete()
-            db.session.commit()
-            flash("Story deleted successfully", "success")
-        return redirect(url_for('profile'))
-
-    published_stories = Story.query.filter_by(user_id=user.id).all()
-    commented_story_ids = db.session.query(Comment.story_id).filter(Comment.user_id == user.id).distinct().all()
-    commented_stories = Story.query.filter(Story.id.in_([sid[0] for sid in commented_story_ids])).all()
-
-    return render_template('profile.html', user=user, published_stories=published_stories, commented_stories=commented_stories)
 
 # Create necessary tables before the first request
 @app.before_first_request
@@ -499,9 +456,6 @@ def testimonials():
 def professional_help():
     return render_template('professional_help.html')
 
-@app.route('/music')
-def music():
-    return render_template('music.html')
 
 # Reset password
 @app.route("/resetpass", methods=["POST"])
