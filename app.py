@@ -1,4 +1,3 @@
-import os
 from random import sample
 from tempfile import mkdtemp
 from flask import Flask, render_template, request, redirect, url_for, session, jsonify, flash
